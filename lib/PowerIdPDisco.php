@@ -279,7 +279,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
 
         /* store the tab list in the session */
         $session = Session::getSessionFromRequest();
-        $session->setData('discopower:tabList', 'faventry', $this->data['faventry']);
+        $session->setData('discopower:tabList', 'faventry', $t->data['faventry']);
         $session->setData('discopower:tabList', 'tabs', array_keys($idpList));
         $session->setData('discopower:tabList', 'defaulttab', $t->data['defaulttab']);
 
