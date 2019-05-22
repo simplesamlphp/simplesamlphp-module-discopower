@@ -16,8 +16,8 @@ String.prototype.score = function (abbreviation,offset) {
         }
     }
 
-    for (var i = 0; i < suggest_cache['len']; ++i) {
-        if (!(this.match(suggest_cache['re'][i]['initialword']) || this.match(suggest_cache['re'][i]['word']))) {
+    for (var j = 0; j < suggest_cache['len']; ++j) {
+        if (!(this.match(suggest_cache['re'][j]['initialword']) || this.match(suggest_cache['re'][j]['word']))) {
             return 0;
         }
     }
