@@ -5,7 +5,7 @@ $(document).ready(function() {
         for (var i = 0; i < data["tabs"].length; i++) {
             var tab = data["tabs"][i];
             $("#query_"+tab).liveUpdate("#list_"+tab);
-            if (data["faventry"] == null && i == 0) {
+            if (data["faventry"] === null && i === 0) {
                 $("#query_"+tab).focus();
             }
         }

@@ -2,6 +2,14 @@
 
 namespace SimpleSAML\Module\discopower;
 
+use SimpleSAML\Configuration;
+use SimpleSAML\Locale\Translate;
+use SimpleSAML\Logger;
+use SimpleSAML\Session;
+use SimpleSAML\Utils\HTTP;
+use SimpleSAML\XHTML\Template;
+use Webmozart\Assert\Assert;
+
 /**
  * This class implements a generic IdP discovery service, for use in various IdP discovery service pages. This should
  * reduce code duplication.
@@ -50,7 +58,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
     {
         parent::__construct($metadataSets, $instance);
 
-        $this->discoconfig = \SimpleSAML\Configuration::getConfig('module_discopower.php');
+        $this->discoconfig = Configuration::getConfig('module_discopower.php');
 
         $this->cdcDomain = $this->discoconfig->getString('cdc.domain', null);
         if ($this->cdcDomain !== null && $this->cdcDomain[0] !== '.') {
@@ -72,7 +80,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      */
     protected function log($message)
     {
-        \SimpleSAML\Logger::info('PowerIdPDisco.'.$this->instance.': '.$message);
+        Logger::info('PowerIdPDisco.'.$this->instance.': '.$message);
     }
 
 
@@ -135,7 +143,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         }
 
         foreach ($slist as $tab => $tbslist) {
-            uasort($slist[$tab], ['\SimpleSAML\Module\discopower\PowerIdPDisco', 'mcmp']);
+            uasort($slist[$tab], [self::class, 'mcmp']);
         }
 
         return $slist;
@@ -247,7 +255,8 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         $idpList = $this->idplistStructured($this->filterList($idpList));
         $preferredIdP = $this->getRecommendedIdP();
 
-        $t = new \SimpleSAML\XHTML\Template($this->config, 'discopower:disco.tpl.php', 'disco');
+        $t = new Template($this->config, 'discopower:disco.tpl.php', 'disco');
+        $translator = $t->getTranslator();
 
         $t->data['return'] = $this->returnURL;
         $t->data['returnIDParam'] = $this->returnIdParam;
@@ -269,22 +278,22 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         }
 
         /* store the tab list in the session */
-        $session = \SimpleSAML\Session::getSessionFromRequest();
+        $session = Session::getSessionFromRequest();
         $session->setData('discopower:tabList', 'faventry', $this->data['faventry']);
         $session->setData('discopower:tabList', 'tabs', array_keys($idpList));
         $session->setData('discopower:tabList', 'defaulttab', $t->data['defaulttab']);
 
         $t->data['score'] = $this->discoconfig->getValue('score', 'quicksilver');
         $t->data['preferredidp'] = $preferredIdP;
-        $t->data['urlpattern'] = htmlspecialchars(\SimpleSAML\Utils\HTTP::getSelfURLNoQuery());
+        $t->data['urlpattern'] = htmlspecialchars(HTTP::getSelfURLNoQuery());
         $t->data['rememberenabled'] = $this->config->getBoolean('idpdisco.enableremember', false);
         $t->data['rememberchecked'] = $this->config->getBoolean('idpdisco.rememberchecked', false);
         $t->data['jquery'] = ['core' => true, 'ui' => true];
         foreach (array_keys($idpList) as $tab) {
-            if ($t->getTag('{discopower:tabs:'.$tab.'}') === null) {
-                $t->includeInlineTranslation('{discopower:tabs:'.$tab.'}', $tab);
+            if ($translator->getTag('{discopower:tabs:'.$tab.'}') === null) {
+                $translator->includeInlineTranslation('{discopower:tabs:'.$tab.'}', $tab);
             }
-            $t->data['tabNames'][$tab] = \SimpleSAML\Locale\Translate::noop('{discopower:tabs:'.$tab.'}');
+            $t->data['tabNames'][$tab] = $translator::noop('{discopower:tabs:'.$tab.'}');
         }
         $t->show();
     }
@@ -342,7 +351,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
                 }
                 $html .= $entity['translated'];
                 if (array_key_exists('icon', $entity) && $entity['icon'] !== null) {
-                    $iconUrl = \SimpleSAML\Utils\HTTP::resolveURL($entity['icon']);
+                    $iconUrl = HTTP::resolveURL($entity['icon']);
                     $html .= '<img alt="Icon for identity provider" class="entryicon" src="'.
                         htmlspecialchars($iconUrl).'" />';
                 }
@@ -427,7 +436,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
             'secure'   => true,
             'httponly' => false,
         ];
-        \SimpleSAML\Utils\HTTP::setCookie('_saml_idp', $newCookie, $params, false);
+        HTTP::setCookie('_saml_idp', $newCookie, $params, false);
     }
 
 
