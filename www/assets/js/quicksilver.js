@@ -38,7 +38,7 @@
 String.prototype.score = function (abbreviation,offset) {
     offset = offset || 0 // TODO: I think this is unused... remove
  
-    if (abbreviation.length == 0) {
+    if (abbreviation.length === 0) {
         return 0.9
     }
     if (abbreviation.length > this.length) {
@@ -75,7 +75,7 @@ String.prototype.score = function (abbreviation,offset) {
                 var j = 0;
                 var c = this.charCodeAt(index - 1)
                 if ( c==32 || c == 9) {
-                    for (var j=(index-2); j >= 0; j--) {
+                    for (j=(index-2); j >= 0; j--) {
                         c = this.charCodeAt(j)
                         score -= ((c == 32 || c == 9) ? 1 : 0.15)
                     }
