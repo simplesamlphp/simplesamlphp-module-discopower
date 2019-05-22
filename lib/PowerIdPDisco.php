@@ -2,6 +2,8 @@
 
 namespace SimpleSAML\Module\discopower;
 
+use Webmozart\Assert\Assert;
+
 /**
  * This class implements a generic IdP discovery service, for use in various IdP discovery service pages. This should
  * reduce code duplication.
@@ -312,7 +314,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
                     $displayName = $entity['UIInfo']['DisplayName'];
 
                     // Should always be an array of language code -> translation
-                    assert(is_array($displayName));
+                    Assert::isArray($displayName);
 
                     if (!empty($displayName)) {
                         $translation = $t->getTranslator()->getPreferredTranslation($displayName);
@@ -391,7 +393,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      */
     protected function setPreviousIdP($idp)
     {
-        assert(is_string($idp));
+        Assert::string($idp);
 
         if ($this->cdcDomain === null) {
             parent::setPreviousIdP($idp);
