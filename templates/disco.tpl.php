@@ -1,8 +1,10 @@
 <?php
 
 $this->data['header'] = $this->t('selectidp');
-$this->data['jquery'] = ['core' => true, 'ui' => true, 'css' => true];
+$this->data['jquery'] = ['core' => true, 'ui' => false, 'css' => false];
 
+$this->data['head'] = '<link rel="stylesheet" media="screen" type="text/css" href="'.
+    SimpleSAML\Module::getModuleURL('discopower/assets/css/uitheme1.12.1/jquery-ui.min.css').'" />';
 $this->data['head'] = '<link rel="stylesheet" media="screen" type="text/css" href="'.
     SimpleSAML\Module::getModuleURL('discopower/assets/css/disco.css').'" />';
 
@@ -12,6 +14,8 @@ $this->data['head'] .= '<script type="text/javascript" src="'.
     SimpleSAML\Module::getModuleURL('discopower/assets/js/'.$this->data['score'].'.js').'"></script>'."\n";
 $this->data['head'] .= '<script type="text/javascript" src="'.
     SimpleSAML\Module::getModuleURL('discopower/assets/js/tablist.js').'"></script>'."\n";
+$this->data['head'] .= '<script type="text/javascript" src="'.
+    SimpleSAML\Module::getModuleURL('discopower/assets/js/jquery-ui-1.12.1.min.js').'"></script>'."\n";
 
 if (!empty($this->data['faventry'])) {
     $this->data['autofocus'] = 'favouritesubmit';
