@@ -288,7 +288,6 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         $t->data['urlpattern'] = htmlspecialchars(HTTP::getSelfURLNoQuery());
         $t->data['rememberenabled'] = $this->config->getBoolean('idpdisco.enableremember', false);
         $t->data['rememberchecked'] = $this->config->getBoolean('idpdisco.rememberchecked', false);
-        $t->data['jquery'] = ['core' => true, 'ui' => true];
         foreach (array_keys($idpList) as $tab) {
             if ($translator->getTag('{discopower:tabs:'.$tab.'}') === null) {
                 $translator->includeInlineTranslation('{discopower:tabs:'.$tab.'}', $tab);
