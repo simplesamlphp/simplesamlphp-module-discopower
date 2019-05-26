@@ -16,7 +16,7 @@ $config = [
     /*
      * the 'tab' parameter allows you to limit the tabs to a specific list. (excluding unlisted tags)
      *
-     * 'tabs' => array('norway', 'finland'),
+     * 'tabs' => ['norway', 'finland'],
      */
 
     /*
