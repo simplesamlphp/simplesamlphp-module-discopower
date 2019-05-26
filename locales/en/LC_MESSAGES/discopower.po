@@ -30,6 +30,9 @@ msgstr "South Africa"
 msgid "{discopower:tabs:kalmar}"
 msgstr "Kalmar"
 
+msgid "{discopower:tabs:netherlands}"
+msgstr "The Netherlands"
+
 msgid "{discopower:tabs:denmark}"
 msgstr "Denmark"
 
