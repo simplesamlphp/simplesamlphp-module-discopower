@@ -11,8 +11,8 @@ String.prototype.score = function (abbreviation,offset) {
         for (var i = 0; i < suggest_cache['len']; ++i) {
             suggest_cache['re'][i] = new Array();
             // /\b<x>/ doesn't work when <x> i a non-ascii - oddly enough \s does ...
-            suggest_cache['re'][i]['initialword'] = new RegExp("^"+words[i], "i");
-            suggest_cache['re'][i]['word'] = new RegExp("[\\s-()_]"+words[i], "i");
+            suggest_cache['re'][i]['initialword'] = new RegExp("^" + words[i], "i");
+            suggest_cache['re'][i]['word'] = new RegExp("[\\s-()_]" + words[i], "i");
         }
     }
 
