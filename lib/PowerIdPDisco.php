@@ -63,7 +63,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         $this->cdcDomain = $this->discoconfig->getString('cdc.domain', null);
         if ($this->cdcDomain !== null && $this->cdcDomain[0] !== '.') {
             // ensure that the CDC domain starts with a dot ('.') as required by the spec
-            $this->cdcDomain = '.'.$this->cdcDomain;
+            $this->cdcDomain = '.' . $this->cdcDomain;
         }
 
         $this->cdcLifetime = $this->discoconfig->getInteger('cdc.lifetime', null);
@@ -80,7 +80,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      */
     protected function log($message)
     {
-        Logger::info('PowerIdPDisco.'.$this->instance.': '.$message);
+        Logger::info('PowerIdPDisco.' . $this->instance . ': '.$message);
     }
 
 
@@ -224,8 +224,9 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         }
 
         $defaultrule = true;
-        if (array_key_exists('entities.include', $spmd['discopower.filter']) ||
-            array_key_exists('tags.include', $spmd['discopower.filter'])
+        if (
+            array_key_exists('entities.include', $spmd['discopower.filter'])
+            || array_key_exists('tags.include', $spmd['discopower.filter'])
         ) {
             $defaultrule = false;
         }
@@ -289,10 +290,10 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         $t->data['rememberenabled'] = $this->config->getBoolean('idpdisco.enableremember', false);
         $t->data['rememberchecked'] = $this->config->getBoolean('idpdisco.rememberchecked', false);
         foreach (array_keys($idpList) as $tab) {
-            if ($translator->getTag('{discopower:tabs:'.$tab.'}') === null) {
-                $translator->includeInlineTranslation('{discopower:tabs:'.$tab.'}', $tab);
+            if ($translator->getTag('{discopower:tabs:' . $tab . '}') === null) {
+                $translator->includeInlineTranslation('{discopower:tabs:' . $tab . '}', $tab);
             }
-            $t->data['tabNames'][$tab] = $translator::noop('{discopower:tabs:'.$tab.'}');
+            $t->data['tabNames'][$tab] = $translator::noop('{discopower:tabs:' . $tab . '}');
         }
         $t->show();
     }
@@ -307,9 +308,9 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
     private function processMetadata($t, $metadata, $favourite)
     {
         $basequerystring = '?'.
-            'entityID='.urlencode($t->data['entityID']).'&amp;'.
-            'return='.urlencode($t->data['return']).'&amp;'.
-            'returnIDParam='.urlencode($t->data['returnIDParam']).'&amp;idpentityid=';
+            'entityID=' . urlencode($t->data['entityID']) . '&amp;' .
+            'return=' . urlencode($t->data['return']) . '&amp;' .
+            'returnIDParam=' . urlencode($t->data['returnIDParam']) . '&amp;idpentityid=';
 
         foreach ($metadata as $tab => $idps) {
             foreach ($idps as $entityid => $entity) {
@@ -342,17 +343,17 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
 
                 // HTML output
                 if ($entity['entityid'] === $favourite) {
-                    $html = '<a class="metaentry favourite" href="'.
-                        $basequerystring.urlencode($entity['entityid']).'">';
+                    $html = '<a class="metaentry favourite" href="' .
+                        $basequerystring.urlencode($entity['entityid']) . '">';
                 } else {
-                    $html = '<a class="metaentry" href="'.
-                        $basequerystring.urlencode($entity['entityid']).'">';
+                    $html = '<a class="metaentry" href="' .
+                        $basequerystring.urlencode($entity['entityid']) . '">';
                 }
                 $html .= $entity['translated'];
                 if (array_key_exists('icon', $entity) && $entity['icon'] !== null) {
                     $iconUrl = HTTP::resolveURL($entity['icon']);
-                    $html .= '<img alt="Icon for identity provider" class="entryicon" src="'.
-                        htmlspecialchars($iconUrl).'" />';
+                    $html .= '<img alt="Icon for identity provider" class="entryicon" src="' .
+                        htmlspecialchars($iconUrl) . '" />';
                 }
                 $html .= '</a>';
                 $entity['html'] = $html;
