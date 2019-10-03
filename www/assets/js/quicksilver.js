@@ -57,7 +57,7 @@ String.prototype.score = function (abbreviation,offset) {
             continue;
         }
 
-        var next_string = this.substring(index+sub_abbreviation.length)
+        var next_string = this.substring(index + sub_abbreviation.length)
         var next_abbreviation = null
 
         if (i >= abbreviation.length) {
@@ -74,8 +74,8 @@ String.prototype.score = function (abbreviation,offset) {
             if (index != 0) {
                 var j = 0;
                 var c = this.charCodeAt(index - 1)
-                if ( c==32 || c == 9) {
-                    for (j=(index-2); j >= 0; j--) {
+                if ( c == 32 || c == 9) {
+                    for (j = (index - 2); j >= 0; j--) {
                         c = this.charCodeAt(j)
                         score -= ((c == 32 || c == 9) ? 1 : 0.15)
                     }
