@@ -116,17 +116,17 @@
 		"ca": "Sud-Àfrica"
 	},
 	"edugain": {
-		"es": "Europa (eduGAIN)",
-		"ru": "\u0415\u0432\u0440\u043e\u043f\u0430 (eduGAIN)",
-		"zh-tw": "\u6b50\u6d32 (eduGAIN)",
-		"nl": "Europa (eduGAIN)",
-		"gl": "Europa (eduGAIN)",
-		"da": "Europa (eduGAIN)",
-		"af": "Europa (eduGAIN)",
-		"el": "\u0395\u03c5\u03c1\u03ce\u03c0\u03b7 (eduGAIN)",
-		"xh": "Yurophu (eduGAIN)",
-		"zu": "IYurophu (eduGAIN)",
-		"ca": "Europa (eduGAIN)"
+		"es": "eduGAIN",
+		"ru": "eduGAIN",
+		"zh-tw": "eduGAIN",
+		"nl": "eduGAIN",
+		"gl": "eduGAIN",
+		"da": "eduGAIN",
+		"af": "eduGAIN",
+		"el": "eduGAIN",
+		"xh": "eduGAIN",
+		"zu": "eduGAIN",
+		"ca": "eduGAIN"
 	},
 	"misc": {
 		"es": "Otros",

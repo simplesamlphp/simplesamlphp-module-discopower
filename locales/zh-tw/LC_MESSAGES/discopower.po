@@ -34,7 +34,7 @@ msgid "{discopower:tabs:southafrica}"
 msgstr "南非"
 
 msgid "{discopower:tabs:edugain}"
-msgstr "歐洲 (eduGAIN)"
+msgstr "eduGAIN"
 
 msgid "{discopower:tabs:iceland}"
 msgstr "冰島"
@@ -81,8 +81,8 @@ msgstr "雜項"
 msgid "Finland"
 msgstr "芬蘭"
 
-msgid "Europe (eduGAIN)"
-msgstr "歐洲 (eduGAIN)"
+msgid "eduGAIN"
+msgstr "eduGAIN"
 
 msgid "InCommon"
 msgstr "InCommon"
