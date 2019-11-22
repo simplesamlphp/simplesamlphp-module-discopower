@@ -2,14 +2,14 @@
 {% extends "base.twig" %}
 
 {% block preload %}
-    <link rel="stylesheet" media="screen" href="/{{ baseurlpath }}module.php/discopower/assets/css/uitheme1.12.1/jquery-ui.min.css">
-    <link rel="stylesheet" media="screen" href="/{{ baseurlpath }}module.php/discopower/assets/css/disco.css">
+    <link rel="stylesheet" media="screen" href="{{ asset('css/uitheme1.12.1/jquery-ui.min.css', 'discopower') }}">
+    <link rel="stylesheet" media="screen" href="{{ asset('css/disco.css', 'discopower') }}">
 {% endblock %}
 {% block postload %}
-    <script src="/{{ baseurlpath }}module.php/discopower/assets/js/jquery-ui-1.12.1.min.js"></script>
-    <script src="/{{ baseurlpath }}module.php/discopower/assets/js/jquery.livesearch.js"></script>
-    <script src="/{{ baseurlpath }}module.php/discopower/assets/js/{{ score }}.js"></script>
-    <script src="/{{ baseurlpath }}module.php/discopower/assets/js/tablist.js"></script>
+    <script src="{{ asset('js/jquery-ui-1.12.1.min.js', 'discopower') }}"></script>
+    <script src="{{ asset('js/jquery.livesearch.js', 'discopower') }}"></script>
+    <script src="{{ asset('js/' ~ score ~ '.js', 'discopower') }}"></script>
+    <script src="{{ asset('js/tablist.js', 'discopower') }}"></script>
 {% endblock %}
 
 {% block content %}
