@@ -267,6 +267,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         $idpList = $this->processMetadata($t, $idpList, $preferredIdP);
 
         $t->data['idplist'] = $idpList;
+        $t->data['faventry'] = null;
         foreach ($idpList as $tab => $slist) {
             if (!empty($preferredIdP) && array_key_exists($preferredIdP, $slist)) {
                 $t->data['faventry'] = $slist[$preferredIdP];
@@ -274,7 +275,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
             }
         }
 
-        if (!empty($t->data['faventry'])) {
+        if (!is_null($t->data['faventry'])) {
             $t->data['autofocus'] = 'favouritesubmit';
         }
 
