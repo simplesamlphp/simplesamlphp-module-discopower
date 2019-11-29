@@ -42,4 +42,13 @@ $config = [
      * Example: 'cdc.lifetime' => 180*24*60*60, // 180 days
      */
     'cdc.lifetime' => null,
+
+    /*
+     * If you are configuring a protocol bridge, setting this to `true` will
+     * parse the URL return parameter and use it to find 'discopower.filter'
+     * configuration in SP metadata on the other side of the bridge.
+     * Because it introduces a small risk, the default is `false`.
+     *
+     * 'useunsafereturn' => false,
+     */
 ];
