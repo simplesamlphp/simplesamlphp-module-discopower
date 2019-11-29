@@ -199,7 +199,29 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         try {
             $spmd = $this->metadata->getMetaData($this->spEntityId, 'saml20-sp-remote');
         } catch (\Exception $e) {
-            return $list;
+            if ($this->discoconfig->getBoolean('useunsafereturn', false)
+                && array_key_exists('return', $_GET)
+            ) {
+                /*
+                 * Get the SP metadata from the other side of the protocol bridge by retrieving the state.
+                 * Because the disco is not explicitly passed the state ID, we can use a crude hack to
+                 * infer it from the return parameter. This should be relatively safe because we're not
+                 * going to trust it for anything other than finding the `discopower.filter` elements,
+                 * and because the SP could bypass all of this anyway by specifying a known IdP in scoping.
+                 */
+                try {
+                    parse_str(parse_url($_GET['return'], PHP_URL_QUERY), $returnState);
+                    $state = \SimpleSAML\Auth\State::loadState($returnState['AuthID'], 'saml:sp:sso');
+                    if($state && array_key_exists('SPMetadata', $state)) {
+                       $spmd = $state['SPMetadata'];
+                       $this->log('Updated SP metadata from '.$this->spEntityId.' to '.$spmd['entityid']);
+                    }
+                } catch (\Exception $e) {
+                   return $list;
+                }
+            } else {
+                return $list;
+            }
         }
 
         if (!isset($spmd)) {
