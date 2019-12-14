@@ -28,7 +28,6 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      */
     private $discoconfig;
 
-
     /**
      * The domain to use when saving common domain cookies. This is null if support for common domain cookies is
      * disabled.
@@ -36,7 +35,6 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      * @var string|null
      */
     private $cdcDomain;
-
 
     /**
      * The lifetime of the CDC cookie, in seconds. If set to null, it will only be valid until the browser is closed.
@@ -54,7 +52,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      * @param array  $metadataSets Array with metadata sets we find remote entities in.
      * @param string $instance The name of this instance of the discovery service.
      */
-    public function __construct(array $metadataSets, $instance)
+    public function __construct(array $metadataSets, string $instance)
     {
         parent::__construct($metadataSets, $instance);
 
@@ -78,9 +76,9 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      * @param string $message The message which should be logged.
      * @return void
      */
-    protected function log($message)
+    protected function log(string $message): void
     {
-        Logger::info('PowerIdPDisco.' . $this->instance . ': '.$message);
+        Logger::info('PowerIdPDisco.' . $this->instance . ': ' . $message);
     }
 
 
@@ -95,7 +93,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @return int How $a compares to $b.
      */
-    public static function mcmp(array $a, array $b)
+    public static function mcmp(array $a, array $b): int
     {
         if (isset($a['name']['en']) && isset($b['name']['en'])) {
             return strcasecmp($a['name']['en'], $b['name']['en']);
@@ -116,7 +114,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @return array The list of IdPs structured accordingly.
      */
-    protected function idplistStructured($list)
+    protected function idplistStructured(array $list): array
     {
         $slist = [];
 
@@ -159,7 +157,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @return boolean True if the entity should be kept, false if it should be discarded according to the filters.
      */
-    private function processFilter($filter, $entry, $default = true)
+    private function processFilter(array $filter, array $entry, bool $default = true): bool
     {
         if (in_array($entry['entityid'], $filter['entities.include'])) {
             return true;
@@ -192,14 +190,15 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @return array The list in $list after filtering entities.
      */
-    protected function filterList($list)
+    protected function filterList(array $list): array
     {
         $list = parent::filterList($list);
 
         try {
             $spmd = $this->metadata->getMetaData($this->spEntityId, 'saml20-sp-remote');
         } catch (\Exception $e) {
-            if ($this->discoconfig->getBoolean('useunsafereturn', false)
+            if (
+                $this->discoconfig->getBoolean('useunsafereturn', false)
                 && array_key_exists('return', $_GET)
             ) {
                 /*
@@ -212,12 +211,12 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
                 try {
                     parse_str(parse_url($_GET['return'], PHP_URL_QUERY), $returnState);
                     $state = \SimpleSAML\Auth\State::loadState($returnState['AuthID'], 'saml:sp:sso');
-                    if($state && array_key_exists('SPMetadata', $state)) {
-                       $spmd = $state['SPMetadata'];
-                       $this->log('Updated SP metadata from '.$this->spEntityId.' to '.$spmd['entityid']);
+                    if ($state && array_key_exists('SPMetadata', $state)) {
+                        $spmd = $state['SPMetadata'];
+                        $this->log('Updated SP metadata from ' . $this->spEntityId . ' to ' . $spmd['entityid']);
                     }
                 } catch (\Exception $e) {
-                   return $list;
+                    return $list;
                 }
             } else {
                 return $list;
@@ -269,7 +268,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      * The IdP disco parameters should be set before calling this function.
      * @return void
      */
-    public function handleRequest()
+    public function handleRequest(): void
     {
         $this->start();
 
@@ -278,7 +277,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         $idpList = $this->idplistStructured($this->filterList($idpList));
         $preferredIdP = $this->getRecommendedIdP();
 
-        $t = new Template($this->config, 'discopower:disco.tpl.php', 'disco');
+        $t = new Template($this->config, 'discopower:disco.twig', 'disco');
         $translator = $t->getTranslator();
 
         $t->data['return'] = $this->returnURL;
@@ -318,19 +317,19 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
             }
             $t->data['tabNames'][$tab] = $translator::noop('{discopower:tabs:' . $tab . '}');
         }
-        $t->show();
+        $t->send();
     }
 
 
     /**
      * @param \SimpleSAML\XHTML\Template $t
      * @param array $metadata
-     * @param string $favourite
+     * @param string|null $favourite
      * @return array
      */
-    private function processMetadata($t, $metadata, $favourite)
+    private function processMetadata(Template $t, array $metadata, ?string $favourite): array
     {
-        $basequerystring = '?'.
+        $basequerystring = '?' .
             'entityID=' . urlencode($t->data['entityID']) . '&amp;' .
             'return=' . urlencode($t->data['return']) . '&amp;' .
             'returnIDParam=' . urlencode($t->data['returnIDParam']) . '&amp;idpentityid=';
@@ -367,10 +366,10 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
                 // HTML output
                 if ($entity['entityid'] === $favourite) {
                     $html = '<a class="metaentry favourite" href="' .
-                        $basequerystring.urlencode($entity['entityid']) . '">';
+                        $basequerystring . urlencode($entity['entityid']) . '">';
                 } else {
                     $html = '<a class="metaentry" href="' .
-                        $basequerystring.urlencode($entity['entityid']) . '">';
+                        $basequerystring . urlencode($entity['entityid']) . '">';
                 }
                 $html .= $entity['translated'];
                 if (array_key_exists('icon', $entity) && $entity['icon'] !== null) {
@@ -388,12 +387,13 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         return $metadata;
     }
 
+
     /**
      * Get the IdP entities saved in the common domain cookie.
      *
      * @return array List of IdP entities.
      */
-    private function getCDC()
+    private function getCDC(): array
     {
         if (!isset($_COOKIE['_saml_idp'])) {
             return [];
@@ -421,10 +421,8 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      * @param string $idp The entityID of the IdP.
      * @return void
      */
-    protected function setPreviousIdP($idp)
+    protected function setPreviousIdP(string $idp): void
     {
-        Assert::string($idp);
-
         if ($this->cdcDomain === null) {
             parent::setPreviousIdP($idp);
             return;
@@ -470,7 +468,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @return string|null The entity id of the previous IdP the user used, or null if this is the first time.
      */
-    protected function getPreviousIdP()
+    protected function getPreviousIdP(): ?string
     {
         if ($this->cdcDomain === null) {
             return parent::getPreviousIdP();

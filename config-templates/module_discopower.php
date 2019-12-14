@@ -1,5 +1,6 @@
 <?php
-/*
+
+/**
  * Configuration for the DiscoPower module.
  */
 
