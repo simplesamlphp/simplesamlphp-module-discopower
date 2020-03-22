@@ -3,7 +3,7 @@
     "description": "Fancy tabbed discovery service with filtering capabilities where SPs can have different sets of metadata listed",
     "type": "simplesamlphp-module",
     "keywords": ["simplesamlphp", "discopower", "discovery"],
-    "license": "LGPL-3.0-or-later",
+    "license": "LGPL-2.1-or-later",
     "authors": [
         {
             "name": "Andreas Åkre Solberg",
