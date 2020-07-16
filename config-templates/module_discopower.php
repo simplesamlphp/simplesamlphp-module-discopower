@@ -21,6 +21,15 @@ $config = [
      */
 
     /*
+     * The 'defaultweight' parameter is used to determine the sort weight when
+     * 'discopower.weight' is not explicitly set for the entity, and allows you
+     * to influence the sorting of the otherwise alphabetical display. Larger
+     * values appear higher up than smaller ones. The default defaultweight is 50.
+     *
+     * 'defaultweight' => 50,
+     */
+
+    /*
      * If you want to change the scoring algorithm to a more google suggest like one
      * (filters by start of words) uncomment this ...
      *
