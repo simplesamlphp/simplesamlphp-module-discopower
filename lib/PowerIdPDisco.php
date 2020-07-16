@@ -45,6 +45,13 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
 
 
     /**
+     * The default sort weight for entries without 'discopower.weight'.
+     *
+     * @var int|null
+     */
+     static $defaultWeight = 50;
+
+    /**
      * Initializes this discovery service.
      *
      * The constructor does the parsing of the request. If this is an invalid request, it will throw an exception.
@@ -65,6 +72,8 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         }
 
         $this->cdcLifetime = $this->discoconfig->getInteger('cdc.lifetime', null);
+
+        self::$defaultWeight = $this->discoconfig->getInteger('defaultweight', 50);
     }
 
 
@@ -99,10 +108,10 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
     {
         // default weights
         if (!isset($a['discopower.weight']) || !is_int($a['discopower.weight'])) {
-            $a['discopower.weight'] = $this->discoconfig->getInteger('defaultweight', 50);
+            $a['discopower.weight'] = self::$defaultWeight;
         }
         if (!isset($b['discopower.weight']) || !is_int($b['discopower.weight'])) {
-            $b['discopower.weight'] = $this->discoconfig->getInteger('defaultweight', 50);
+            $b['discopower.weight'] = self::$defaultWeight;
         }
         if ($a['discopower.weight'] > $b['discopower.weight']) {
             return -1; // higher weights further up
