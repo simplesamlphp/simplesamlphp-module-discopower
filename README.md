@@ -1,4 +1,4 @@
-discopower
+DiscoPower
 =============
 [![Build Status](https://travis-ci.org/simplesamlphp/simplesamlphp-module-discopower.svg?branch=master)](https://travis-ci.org/simplesamlphp/simplesamlphp-module-discopower)
 
@@ -25,5 +25,5 @@ available if you want to use a stable version of the module.
 Documentation
 -------------
 
-See [docs/authproc_discopower.md](https://github.com/simplesamlphp/simplesamlphp-module-discopower/blob/master/docs/discopower.md).
+See [docs/discopower.md](https://github.com/ghalse/simplesamlphp-module-discopower/blob/documentation/docs/discopower.md)
 
