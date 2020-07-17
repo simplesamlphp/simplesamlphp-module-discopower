@@ -92,6 +92,24 @@ In this scenario, the only way to infer the entityId is from the `return` parame
 
 However, if, as is often the case, you're not worried if users learn all the IdPs you support and are merely filtering to improve the user interface, then you may consider this relatively safe. In this case, you can enable support for filtering over the protocol bridge by setting the `useunsafereturn` option in `config/module_discopower.php` to `true`.
 
+Changing the display order
+---------------------------
+
+By default, DiscoPower sorts identity providers alphabetically by the English name (specified by the `name` parameter in metadata). Where providers do not have names, they're sorted by their `entityId`. However, providers with only an entityId will always appear below those with an English name.
+
+If you wish to manipulate the default sort order, the easiest way to do this is by setting a `discopower.weight` in the identity provider's metadata. Weights are numeric values, and higher weights are sorted above lower ones. Where weights are not specified, they inherit the `defaultweight` from `config/module_discopower.php` (which itself defaults to 100).
+
+Thus to force a particular identity provider to the top of the list, you can set it's weight very high, like this:
+
+```php
+$metadata['https://idp2.example.net/'] = [
+    // ...
+    'name' => ['en' => 'IdP 1'],
+    'tags' => ['tag1', 'tag2'],
+    'discopower.weight' => 200,
+];
+```
+
 Interacting with metarefresh
 ----------------------------
 
