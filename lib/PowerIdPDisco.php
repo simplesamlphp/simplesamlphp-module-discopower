@@ -49,7 +49,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @var int|null
      */
-     static $defaultWeight = 50;
+     static $defaultWeight = 100;
 
     /**
      * Initializes this discovery service.
@@ -73,7 +73,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
 
         $this->cdcLifetime = $this->discoconfig->getInteger('cdc.lifetime', null);
 
-        self::$defaultWeight = $this->discoconfig->getInteger('defaultweight', 50);
+        self::$defaultWeight = $this->discoconfig->getInteger('defaultweight', 100);
     }
 
 

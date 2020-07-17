@@ -24,9 +24,9 @@ $config = [
      * The 'defaultweight' parameter is used to determine the sort weight when
      * 'discopower.weight' is not explicitly set for the entity, and allows you
      * to influence the sorting of the otherwise alphabetical display. Larger
-     * values appear higher up than smaller ones. The default defaultweight is 50.
+     * values appear higher up than smaller ones. The default defaultweight is 100.
      *
-     * 'defaultweight' => 50,
+     * 'defaultweight' => 100,
      */
 
     /*
