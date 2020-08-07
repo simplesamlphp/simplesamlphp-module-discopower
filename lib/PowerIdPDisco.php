@@ -45,6 +45,13 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
 
 
     /**
+     * The default sort weight for entries without 'discopower.weight'.
+     *
+     * @var int|null
+     */
+     static $defaultWeight = 100;
+
+    /**
      * Initializes this discovery service.
      *
      * The constructor does the parsing of the request. If this is an invalid request, it will throw an exception.
@@ -65,6 +72,8 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         }
 
         $this->cdcLifetime = $this->discoconfig->getInteger('cdc.lifetime', null);
+
+        self::$defaultWeight = $this->discoconfig->getInteger('defaultweight', 100);
     }
 
 
@@ -85,8 +94,10 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
     /**
      * Compare two entities.
      *
-     * This function is used to sort the entity list. It sorts based on english name, and will always put IdP's with
-     * names configured before those with only an entityID.
+     * This function is used to sort the entity list. It sorts based on weights,
+     * and where those aren't available, English name. It puts larger weights
+     * higher, and will always put IdP's with names configured before those with
+     * only an entityID.
      *
      * @param array $a The metadata of the first entity.
      * @param array $b The metadata of the second entity.
@@ -95,7 +106,18 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      */
     public static function mcmp(array $a, array $b): int
     {
-        if (isset($a['name']['en']) && isset($b['name']['en'])) {
+        // default weights
+        if (!isset($a['discopower.weight']) || !is_int($a['discopower.weight'])) {
+            $a['discopower.weight'] = self::$defaultWeight;
+        }
+        if (!isset($b['discopower.weight']) || !is_int($b['discopower.weight'])) {
+            $b['discopower.weight'] = self::$defaultWeight;
+        }
+        if ($a['discopower.weight'] > $b['discopower.weight']) {
+            return -1; // higher weights further up
+        } elseif ($b['discopower.weight'] > $a['discopower.weight']) {
+            return 1; // lower weights further down
+        } elseif (isset($a['name']['en']) && isset($b['name']['en'])) {
             return strcasecmp($a['name']['en'], $b['name']['en']);
         } elseif (isset($a['name']['en'])) {
             return -1; // place name before entity ID
@@ -142,6 +164,8 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
 
         foreach ($slist as $tab => $tbslist) {
             uasort($slist[$tab], [self::class, 'mcmp']);
+            // reorder with a hook if one exists
+            \SimpleSAML\Module::callHooks('discosort', $slist[$tab]);
         }
 
         return $slist;
