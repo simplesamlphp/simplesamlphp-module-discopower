@@ -164,6 +164,8 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
 
         foreach ($slist as $tab => $tbslist) {
             uasort($slist[$tab], [self::class, 'mcmp']);
+            // reorder with a hook if one exists
+            \SimpleSAML\Module::callHooks('discosort', $slist[$tab]);
         }
 
         return $slist;
