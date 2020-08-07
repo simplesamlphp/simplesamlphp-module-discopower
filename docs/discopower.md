@@ -110,6 +110,14 @@ $metadata['https://idp2.example.net/'] = [
 ];
 ```
 
+More complex sorting can be done with a hook. To do this, create a file named `hook_discosort.php` and place it under the `<module_name>/hooks` directory. This file should contain a function named:
+
+```php
+<module_name>_hook_discosort(&$entities)
+```
+
+where the `$entities` parameter is a reference to an array containing the metadata objects for each entity on a given tab. This is suitable for passing to a function like [`uasort()`](https://www.php.net/manual/en/function.uasort.php), but you're free to sort it using any method you wish.
+
 Interacting with metarefresh
 ----------------------------
 
