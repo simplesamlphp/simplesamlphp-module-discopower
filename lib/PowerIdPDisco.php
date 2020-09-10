@@ -16,7 +16,6 @@ use Webmozart\Assert\Assert;
  *
  * This module extends the basic IdP disco handler, and add features like filtering and tabs.
  *
- * @author Andreas Åkre Solberg <andreas@uninett.no>, UNINETT AS.
  * @package SimpleSAMLphp
  */
 class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco

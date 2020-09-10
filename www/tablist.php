@@ -4,7 +4,6 @@
  * An AJAX handler to retrieve a list of disco tabs from the session.
  * This allows us to dynamically update the tab list without inline javascript.
  *
- * @author Guy Halse, http://orcid.org/0000-0002-9388-8592
  * @package SimpleSAMLphp
  */
 
