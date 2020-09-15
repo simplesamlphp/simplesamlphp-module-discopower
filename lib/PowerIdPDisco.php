@@ -82,7 +82,6 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      * This is an helper function for logging messages. It will prefix the messages with our discovery service type.
      *
      * @param string $message The message which should be logged.
-     * @return void
      */
     protected function log(string $message): void
     {
@@ -289,7 +288,6 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      * Handles a request to this discovery service.
      *
      * The IdP disco parameters should be set before calling this function.
-     * @return void
      */
     public function handleRequest(): void
     {
@@ -442,7 +440,6 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      * This function overrides the corresponding function in the parent class, to add support for common domain cookie.
      *
      * @param string $idp The entityID of the IdP.
-     * @return void
      */
     protected function setPreviousIdP(string $idp): void
     {

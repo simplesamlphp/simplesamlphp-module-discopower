@@ -16,7 +16,6 @@ class PowerIdPDiscoTest extends TestCase
     private $idpList;
 
     /**
-     * @return void
      */
     protected function setUp(): void
     {
@@ -52,7 +51,6 @@ class PowerIdPDiscoTest extends TestCase
     /**
      * @covers \SimpleSAML\Module\discopower\PowerIdPDisco
      * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::__construct
-     * @return void
      */
     public function testPowerIdPDisco(): void
     {
@@ -61,7 +59,6 @@ class PowerIdPDiscoTest extends TestCase
 
     /**
      * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::getIdPList
-     * @return void
      */
     public function testGetIdPList(): void
     {
@@ -77,7 +74,6 @@ class PowerIdPDiscoTest extends TestCase
      * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::idplistStructured
      * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::getIdPList
      * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::mcmp
-     * @return void
      */
     public function testIdplistStructured(): void
     {
@@ -106,7 +102,6 @@ class PowerIdPDiscoTest extends TestCase
 
     /**
      * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::mcmp
-     * @return void
      */
     public function testmcmp(): void
     {
