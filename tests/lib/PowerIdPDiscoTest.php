@@ -22,7 +22,7 @@ class PowerIdPDiscoTest extends TestCase
         $this->config = Configuration::loadFromArray([
             'module.enable' => ['discopower' => true],
             'metadata.sources' => [
-                ['type' => 'flatfile', 'directory' => __DIR__. '/test-metadata'],
+                ['type' => 'flatfile', 'directory' => __DIR__ . '/test-metadata'],
             ],
         ], '[ARRAY]', 'simplesaml');
         Configuration::setPreLoadedConfig($this->config, 'config.php');
@@ -82,17 +82,46 @@ class PowerIdPDiscoTest extends TestCase
         $idplistStructured->setAccessible(true);
         $idpList = $idplistStructured->invokeArgs($this->discoHandler, [$this->idpList]);
 
-         $expected = [
+        $expected = [
             'B' => [
-                'https://idp04.example.org' => ['name' => ['en' => 'IdP 04'], 'tags' => ['A', 'B'], 'entityid' => 'https://idp04.example.org'],
-                'https://idp06.example.org' => ['name' => ['en' => 'IdP 06'], 'tags' => ['B'], 'entityid' => 'https://idp06.example.org'],
-                'https://idp05.example.org' => ['tags' => ['B'], 'entityid' => 'https://idp05.example.org'],
+                'https://idp04.example.org' => [
+                    'name' => ['en' => 'IdP 04'],
+                    'tags' => ['A', 'B'],
+                    'entityid' => 'https://idp04.example.org'
+                ],
+                'https://idp06.example.org' => [
+                    'name' => ['en' => 'IdP 06'],
+                    'tags' => ['B'],
+                    'entityid' => 'https://idp06.example.org'
+                ],
+                'https://idp05.example.org' => [
+                    'tags' => ['B'],
+                    'entityid' => 'https://idp05.example.org'
+                ],
             ],
             'A' => [
-                'https://idp03.example.org' => ['name' => ['en' => 'IdP 03'], 'discopower.weight' => 100, 'tags' => ['A'], 'entityid' => 'https://idp03.example.org'],
-                'https://idp02.example.org' => ['name' => ['en' => 'IdP 02'], 'tags' => ['A'], 'entityid' => 'https://idp02.example.org'],
-                'https://idp04.example.org' => ['name' => ['en' => 'IdP 04'], 'tags' => ['A','B',], 'entityid' => 'https://idp04.example.org'],
-                'https://idp01.example.org' => ['name' => ['en' => 'IdP 01'], 'discopower.weight' => 1, 'tags' => ['A'], 'entityid' => 'https://idp01.example.org'],
+                'https://idp03.example.org' => [
+                    'name' => ['en' => 'IdP 03'],
+                    'discopower.weight' => 100,
+                    'tags' => ['A'],
+                    'entityid' => 'https://idp03.example.org'
+                ],
+                'https://idp02.example.org' => [
+                    'name' => ['en' => 'IdP 02'],
+                    'tags' => ['A'],
+                    'entityid' => 'https://idp02.example.org'
+                ],
+                'https://idp04.example.org' => [
+                    'name' => ['en' => 'IdP 04'],
+                    'tags' => ['A','B',],
+                    'entityid' => 'https://idp04.example.org'
+                ],
+                'https://idp01.example.org' => [
+                    'name' => ['en' => 'IdP 01'],
+                    'discopower.weight' => 1,
+                    'tags' => ['A'],
+                    'entityid' => 'https://idp01.example.org'
+                ],
             ],
         ];
         $this->assertEquals($expected, $idpList);
@@ -105,11 +134,45 @@ class PowerIdPDiscoTest extends TestCase
      */
     public function testmcmp(): void
     {
-        $this->assertEquals(-1, PowerIdPDisco::mcmp(['name' => 'B', 'entityid' => '1'], ['name' => 'A', 'entityid' => '2']), 'name,name');
-        $this->assertEquals(-1, PowerIdPDisco::mcmp(['entityid' => '1'], ['name' => 'A', 'entityid' => '2']), 'entityid,name');
-        $this->assertEquals(1, PowerIdPDisco::mcmp(['entityid' => '2'], ['entityid' => '1']), 'entityid,entityid');
-        $this->assertEquals(-1, PowerIdPDisco::mcmp(['name' => 'B', 'entityid' => '1', 'discopower.weight' => 100], ['name' => 'A', 'entityid' => '2']), 'weight,name');
-        $this->assertEquals(1, PowerIdPDisco::mcmp(['name' => 'B', 'entityid' => '1', 'discopower.weight' => 100], ['name' => 'A', 'entityid' => '2', 'discopower.weight' => 200]), 'weight,weight');
+        $this->assertEquals(
+            -1,
+            PowerIdPDisco::mcmp(
+                ['name' => 'B', 'entityid' => '1'],
+                ['name' => 'A', 'entityid' => '2']
+            ),
+            'name,name'
+        );
+        $this->assertEquals(
+            -1,
+            PowerIdPDisco::mcmp(
+                ['entityid' => '1'],
+                ['name' => 'A', 'entityid' => '2']
+            ),
+            'entityid,name'
+        );
+        $this->assertEquals(
+            1,
+            PowerIdPDisco::mcmp(
+                ['entityid' => '2'],
+                ['entityid' => '1']
+            ),
+            'entityid,entityid'
+        );
+        $this->assertEquals(
+            -1,
+            PowerIdPDisco::mcmp(
+                ['name' => 'B', 'entityid' => '1', 'discopower.weight' => 100],
+                ['name' => 'A', 'entityid' => '2']
+            ),
+            'weight,name'
+        );
+        $this->assertEquals(
+            1,
+            PowerIdPDisco::mcmp(
+                ['name' => 'B', 'entityid' => '1', 'discopower.weight' => 100],
+                ['name' => 'A', 'entityid' => '2', 'discopower.weight' => 200]
+            ),
+            'weight,weight'
+        );
     }
-
 }

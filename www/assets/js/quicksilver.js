@@ -37,7 +37,7 @@
 
 String.prototype.score = function (abbreviation,offset) {
     offset = offset || 0 // TODO: I think this is unused... remove
- 
+
     if (abbreviation.length === 0) {
         return 0.9
     }
@@ -65,9 +65,9 @@ String.prototype.score = function (abbreviation,offset) {
         } else {
             next_abbreviation = abbreviation.substring(i)
         }
- 
+
         var remaining_score = next_string.score(next_abbreviation,offset + index)
- 
+
         if (remaining_score > 0) {
             var score = this.length - next_string.length;
 
@@ -92,7 +92,7 @@ String.prototype.score = function (abbreviation,offset) {
                     score -= index
                 }
             }
-   
+
             score += remaining_score * next_string.length
             score /= this.length;
             return score

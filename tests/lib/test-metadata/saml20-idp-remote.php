@@ -1,4 +1,5 @@
 <?php
+
 $metadata['https://idp01.example.org'] = [
     'name' => ['en' => 'IdP 01'],
     'discopower.weight' => 1,
@@ -24,4 +25,3 @@ $metadata['https://idp06.example.org'] = [
     'name' => ['en' => 'IdP 06'],
     'tags' => ['B'],
 ];
-

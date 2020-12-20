@@ -48,7 +48,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @var int|null
      */
-     static $defaultWeight = 100;
+    private static $defaultWeight = 100;
 
     /**
      * Initializes this discovery service.
