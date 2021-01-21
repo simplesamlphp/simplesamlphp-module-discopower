@@ -2,6 +2,7 @@ DiscoPower
 =============
 ![Build Status](https://github.com/simplesamlphp/simplesamlphp-module-discopower/workflows/CI/badge.svg?branch=master)
 [![Coverage Status](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-discopower/branch/master/graph/badge.svg)](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-discopower)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/simplesamlphp/simplesamlphp-module-discopower/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/simplesamlphp/simplesamlphp-module-discopower/?branch=master)
 
 A more advanced replacement for the built-in discovery service, DiscoPower
 supports grouping identity providers into tabs and provides mechanisms
