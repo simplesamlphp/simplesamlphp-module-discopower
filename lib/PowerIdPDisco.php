@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\discopower;
 
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\Configuration;
 use SimpleSAML\Locale\Translate;
 use SimpleSAML\Logger;
 use SimpleSAML\Session;
 use SimpleSAML\Utils\HTTP;
 use SimpleSAML\XHTML\Template;
-use Webmozart\Assert\Assert;
 
 /**
  * This class implements a generic IdP discovery service, for use in various IdP discovery service pages. This should
@@ -25,7 +27,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @var \SimpleSAML\Configuration
      */
-    private $discoconfig;
+    private Configuration $discoconfig;
 
     /**
      * The domain to use when saving common domain cookies. This is null if support for common domain cookies is
@@ -33,14 +35,14 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @var string|null
      */
-    private $cdcDomain;
+    private ?string $cdcDomain;
 
     /**
      * The lifetime of the CDC cookie, in seconds. If set to null, it will only be valid until the browser is closed.
      *
      * @var int|null
      */
-    private $cdcLifetime;
+    private ?int $cdcLifetime;
 
 
     /**
@@ -48,7 +50,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
      *
      * @var int|null
      */
-    private static $defaultWeight = 100;
+    private static ?int $defaultWeight = 100;
 
     /**
      * Initializes this discovery service.

@@ -1,19 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Test\Module\discopower;
 
 use PHPUnit\Framework\TestCase;
 use SAML2\Constants;
-use SimpleSAML\Module\discopower\PowerIdPDisco;
 use SimpleSAML\Configuration;
 use SimpleSAML\Metadata\MetaDataStorageHandler;
+use SimpleSAML\Module\discopower\PowerIdPDisco;
 
 class PowerIdPDiscoTest extends TestCase
 {
-    private $discoHandler;
-    private $config;
-    private $discoConfig;
-    private $idpList;
+    /** @var \SimpleSAML\Module\discopower\PowerIdPDisco */
+    private PowerIdPDisco $discoHandler;
+
+    /** @var \SimpleSAML\Configuration */
+    private Configuration $config;
+
+    /** @var \SimpleSAML\Configuration */
+    private Configuration $discoConfig;
+
+    /** @var array */
+    private array $idpList;
 
     /**
      */
