@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Module\discopower;
 
+use Exception;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\Auth;
 use SimpleSAML\Configuration;
 use SimpleSAML\Locale\Translate;
 use SimpleSAML\Logger;
+use SimpleSAML\Module;
 use SimpleSAML\Session;
-use SimpleSAML\Utils\HTTP;
+use SimpleSAML\Utils;
+use SimpleSAML\XHTML\IdPDisco;
 use SimpleSAML\XHTML\Template;
 
 /**
@@ -20,7 +24,7 @@ use SimpleSAML\XHTML\Template;
  *
  * @package SimpleSAMLphp
  */
-class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
+class PowerIdPDisco extends IdPDisco
 {
     /**
      * The configuration for this instance.
@@ -165,7 +169,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         foreach ($slist as $tab => $tbslist) {
             uasort($slist[$tab], [self::class, 'mcmp']);
             // reorder with a hook if one exists
-            \SimpleSAML\Module::callHooks('discosort', $slist[$tab]);
+            Module::callHooks('discosort', $slist[$tab]);
         }
 
         return $slist;
@@ -220,7 +224,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
 
         try {
             $spmd = $this->metadata->getMetaData($this->spEntityId, 'saml20-sp-remote');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if (
                 $this->discoconfig->getBoolean('useunsafereturn', false)
                 && array_key_exists('return', $_GET)
@@ -234,12 +238,12 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
                  */
                 try {
                     parse_str(parse_url($_GET['return'], PHP_URL_QUERY), $returnState);
-                    $state = \SimpleSAML\Auth\State::loadState($returnState['AuthID'], 'saml:sp:sso');
+                    $state = Auth\State::loadState($returnState['AuthID'], 'saml:sp:sso');
                     if ($state && array_key_exists('SPMetadata', $state)) {
                         $spmd = $state['SPMetadata'];
                         $this->log('Updated SP metadata from ' . $this->spEntityId . ' to ' . $spmd['entityid']);
                     }
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     return $list;
                 }
             } else {
@@ -329,9 +333,10 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
         $session->setData('discopower:tabList', 'tabs', array_keys($idpList));
         $session->setData('discopower:tabList', 'defaulttab', $t->data['defaulttab']);
 
+        $httpUtils = new Utils\HTTP();
         $t->data['score'] = $this->discoconfig->getValue('score', 'quicksilver');
         $t->data['preferredidp'] = $preferredIdP;
-        $t->data['urlpattern'] = htmlspecialchars(HTTP::getSelfURLNoQuery());
+        $t->data['urlpattern'] = htmlspecialchars($httpUtils->getSelfURLNoQuery());
         $t->data['rememberenabled'] = $this->config->getBoolean('idpdisco.enableremember', false);
         $t->data['rememberchecked'] = $this->config->getBoolean('idpdisco.rememberchecked', false);
         foreach (array_keys($idpList) as $tab) {
@@ -357,6 +362,8 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
             'return=' . urlencode($t->data['return']) . '&amp;' .
             'returnIDParam=' . urlencode($t->data['returnIDParam']) . '&amp;idpentityid=';
 
+        $translator = $t->getTranslator();
+        $httpUtils = new Utils\HTTP();
         foreach ($metadata as $tab => $idps) {
             foreach ($idps as $entityid => $entity) {
                 $translation = false;
@@ -369,13 +376,13 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
                     Assert::isArray($displayName);
 
                     if (!empty($displayName)) {
-                        $translation = $t->getTranslator()->getPreferredTranslation($displayName);
+                        $translation = $translator->getPreferredTranslation($displayName);
                     }
                 }
 
                 if (($translation === false) && array_key_exists('name', $entity)) {
                     if (is_array($entity['name'])) {
-                        $translation = $t->getTranslator()->getPreferredTranslation($entity['name']);
+                        $translation = $translator->getPreferredTranslation($entity['name']);
                     } else {
                         $translation = $entity['name'];
                     }
@@ -396,7 +403,7 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
                 }
                 $html .= $entity['translated'];
                 if (array_key_exists('icon', $entity) && $entity['icon'] !== null) {
-                    $iconUrl = HTTP::resolveURL($entity['icon']);
+                    $iconUrl = $httpUtils->resolveURL($entity['icon']);
                     $html .= '<img alt="Icon for identity provider" class="entryicon" src="' .
                         htmlspecialchars($iconUrl) . '" />';
                 }
@@ -479,7 +486,9 @@ class PowerIdPDisco extends \SimpleSAML\XHTML\IdPDisco
             'secure'   => true,
             'httponly' => false,
         ];
-        HTTP::setCookie('_saml_idp', $newCookie, $params, false);
+
+        $httpUtils = new Utils\HTTP();
+        $httpUtils->setCookie('_saml_idp', $newCookie, $params, false);
     }
 
 

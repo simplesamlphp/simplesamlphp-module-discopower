@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\Module\discopower;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use SAML2\Constants;
 use SimpleSAML\Configuration;
 use SimpleSAML\Metadata\MetaDataStorageHandler;
@@ -63,7 +64,7 @@ class PowerIdPDiscoTest extends TestCase
      */
     public function testPowerIdPDisco(): void
     {
-        $this->assertInstanceOf('\SimpleSAML\Module\discopower\PowerIdPDisco', $this->discoHandler);
+        $this->assertInstanceOf(PowerIdPDisco::class, $this->discoHandler);
     }
 
     /**
@@ -71,7 +72,7 @@ class PowerIdPDiscoTest extends TestCase
      */
     public function testGetIdPList(): void
     {
-        $refl = new \ReflectionClass($this->discoHandler);
+        $refl = new ReflectionClass($this->discoHandler);
         $getIdPList = $refl->getMethod('getIdPList');
         $getIdPList->setAccessible(true);
         $idpList = $getIdPList->invoke($this->discoHandler);
@@ -86,7 +87,7 @@ class PowerIdPDiscoTest extends TestCase
      */
     public function testIdplistStructured(): void
     {
-        $refl = new \ReflectionClass($this->discoHandler);
+        $refl = new ReflectionClass($this->discoHandler);
         $idplistStructured = $refl->getMethod('idplistStructured');
         $idplistStructured->setAccessible(true);
         $idpList = $idplistStructured->invokeArgs($this->discoHandler, [$this->idpList]);
