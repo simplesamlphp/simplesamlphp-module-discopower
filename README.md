@@ -27,5 +27,5 @@ available if you want to use a stable version of the module.
 Documentation
 -------------
 
-See [docs/discopower.md](https://github.com/simplesamlphp/simplesamlphp-module-discopower/blob/documentation/docs/discopower.md)
+See [docs/discopower.md](https://github.com/simplesamlphp/simplesamlphp-module-discopower/blob/master/docs/discopower.md)
 
