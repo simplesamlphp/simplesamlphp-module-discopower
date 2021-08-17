@@ -7,9 +7,6 @@
     color: #aaa;
 }
 .inlinesearch input {
-    background-image:url('../../../../resources/icons/silk/magnifier.png');
-    background-repeat:no-repeat;
-    background-position:center left;
     border: 1px solid #ccc;
     padding: 2px 2px 2px 20px;
     margin: 0px 2px 0px 0px;
@@ -32,17 +29,11 @@ a.metaentry {
     cursor: pointer;
     cursor: hand;
 }
-a.metaentry.favourite {
-    background-image:url('../../../../resources/icons/silk/heart.png');
-    background-repeat:no-repeat;
-    background-position:center left;
+a.metaentry.favourite::before {
 }
 a.metaentry:hover {
     border: 1px solid #ccc;
     background: #eee;
-    background-image:url('../../../../resources/icons/silk/star.png');
-    background-repeat:no-repeat;
-    background-position:center left;
 }
 a.metaentry img.entryicon {
     display: none;
@@ -63,6 +54,9 @@ div.favourite {
     padding: 1em;
     border: 1px solid #ccc;
     background-color: #eee;
+}
+#favouritesubmit {
+    margin-top: 1ex;
 }
 
 div#content {

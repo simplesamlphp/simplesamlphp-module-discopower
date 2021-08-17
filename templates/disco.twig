@@ -15,13 +15,13 @@
 {% block content %}
     {% if faventry is not empty %}
     <div class="favourite">{{ '{disco:previous_auth}'|trans }}
-        <strong>{{ faventry.translated|escape('html') }}</strong>
-        <form id="idpselectform" method="get" action="{{ urlpattern }}">
-            <input type="hidden" name="entityID" value="{{ entityID|escape('html') }}" />
-            <input type="hidden" name="return" value="{{ return|escape('html') }}" />
-            <input type="hidden" name="returnIDParam" value="{{ returnIDParam|escape('html') }}" />
-            <input type="hidden" name="idpentityid" value="{{ faventry.entityid|escape('html') }}" />
-            <input type="submit" name="formsubmit" id="favouritesubmit" value="{{ '{disco:login_at}'|trans }} {{ faventry.translated|escape('html') }}" />
+        <strong>{{ faventry.translated|escape('html') }}</strong><br>
+        <form id="idpselectform" class="pure-form" method="get" action="{{ urlpattern }}">
+            <input type="hidden" name="entityID" value="{{ entityID|escape('html') }}">
+            <input type="hidden" name="return" value="{{ return|escape('html') }}">
+            <input type="hidden" name="returnIDParam" value="{{ returnIDParam|escape('html') }}">
+            <input type="hidden" name="idpentityid" value="{{ faventry.entityid|escape('html') }}">
+            <input type="submit" name="formsubmit" id="favouritesubmit" value="{{ '{disco:login_at}'|trans }} {{ faventry.translated|escape('html') }}" class="pure-button pure-button-primary">
     </form>
     </div>
     {% endif %}
