@@ -36,7 +36,7 @@
         "simplesamlphp/simplesamlphp-test-framework": "~1.0.3"
     },
     "support": {
-        "issues": "https://github.com/tvdijen/simplesamlphp-module-discopower/issues",
-        "source": "https://github.com/tvdijen/simplesamlphp-module-discopower"
+        "issues": "https://github.com/simplesamlphp/simplesamlphp-module-discopower/issues",
+        "source": "https://github.com/simplesamlphp/simplesamlphp-module-discopower"
     }
 }
