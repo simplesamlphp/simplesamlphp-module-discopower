@@ -144,11 +144,9 @@ class PowerIdPDisco extends IdPDisco
     {
         $slist = [];
 
-        $order = $this->discoconfig->getValue('taborder');
-        if (is_array($order)) {
-            foreach ($order as $oe) {
-                $slist[$oe] = [];
-            }
+        $order = $this->discoconfig->getArray('taborder', []);
+        foreach ($order as $oe) {
+            $slist[$oe] = [];
         }
 
         $enableTabs = $this->discoconfig->getValue('tabs', null);
@@ -158,6 +156,8 @@ class PowerIdPDisco extends IdPDisco
             if (array_key_exists('tags', $val)) {
                 $tags = $val['tags'];
             }
+
+
             foreach ($tags as $tag) {
                 if (!empty($enableTabs) && !in_array($tag, $enableTabs)) {
                     continue;
@@ -251,10 +251,7 @@ class PowerIdPDisco extends IdPDisco
             }
         }
 
-        if (!isset($spmd)) {
-            return $list;
-        }
-        if (!array_key_exists('discopower.filter', $spmd)) {
+        if (!isset($spmd) || !array_key_exists('discopower.filter', $spmd)) {
             return $list;
         }
         $filter = $spmd['discopower.filter'];
