@@ -339,10 +339,12 @@ class PowerIdPDisco extends IdPDisco
         $t->data['rememberenabled'] = $this->config->getBoolean('idpdisco.enableremember', false);
         $t->data['rememberchecked'] = $this->config->getBoolean('idpdisco.rememberchecked', false);
         foreach (array_keys($idpList) as $tab) {
-            if ($translator->getTag('{discopower:tabs:' . $tab . '}') === null) {
-                $translator->includeInlineTranslation('{discopower:tabs:' . $tab . '}', $tab);
+            $translatableTag = "{discopower:tabs:$tab}";
+            if ($translator::translateSingularGettext($translatableTag) === $translatableTag) {
+                $t->data['tabNames'][$tab] = $translator::noop($tab);
+            } else {
+                $t->data['tabNames'][$tab] = $translator::noop($translatableTag);
             }
-            $t->data['tabNames'][$tab] = $translator::noop('{discopower:tabs:' . $tab . '}');
         }
         $t->send();
     }
