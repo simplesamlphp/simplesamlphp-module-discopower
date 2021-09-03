@@ -50,7 +50,7 @@
               <a class="metaentry{% if entity == faventry %} favourite{% endif %}"
                   href="{{ entity.actionUrl }}">{{ entity|entityDisplayName }}
               {% if entity.iconUrl is defined %}
-                    <img alt="Icon for identity provider" class="entryicon" src="{{ entity.iconUrl}}" loading="lazy">
+                    <img alt="Icon for identity provider" class="entryicon" src="{{ entity.iconUrl }}" loading="lazy">
               {% endif %}
               </a>
           {% endfor %}
