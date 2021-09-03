@@ -309,7 +309,7 @@ class PowerIdPDisco extends IdPDisco
         $t->data['entityID'] = $this->spEntityId;
         $t->data['defaulttab'] = $this->discoconfig->getValue('defaulttab', 0);
 
-        $idpList = $this->processMetadata($t, $idpList, $preferredIdP);
+        $idpList = $this->processMetadata($t, $idpList);
 
         $t->data['idplist'] = $idpList;
         $t->data['faventry'] = null;
@@ -353,65 +353,22 @@ class PowerIdPDisco extends IdPDisco
     /**
      * @param \SimpleSAML\XHTML\Template $t
      * @param array $metadata
-     * @param string|null $favourite
      * @return array
      */
-    private function processMetadata(Template $t, array $metadata, ?string $favourite): array
+    private function processMetadata(Template $t, array $metadata): array
     {
         $basequerystring = '?' .
             'entityID=' . urlencode($t->data['entityID']) . '&amp;' .
             'return=' . urlencode($t->data['return']) . '&amp;' .
             'returnIDParam=' . urlencode($t->data['returnIDParam']) . '&amp;idpentityid=';
 
-        $translator = $t->getTranslator();
         $httpUtils = new Utils\HTTP();
         foreach ($metadata as $tab => $idps) {
             foreach ($idps as $entityid => $entity) {
-                $translation = false;
-
-                // Translate name
-                if (isset($entity['UIInfo']['DisplayName'])) {
-                    $displayName = $entity['UIInfo']['DisplayName'];
-
-                    // Should always be an array of language code -> translation
-                    Assert::isArray($displayName);
-
-                    if (!empty($displayName)) {
-                        $translation = $translator->getPreferredTranslation($displayName);
-                    }
-                }
-
-                if (($translation === false) && array_key_exists('name', $entity)) {
-                    if (is_array($entity['name'])) {
-                        $translation = $translator->getPreferredTranslation($entity['name']);
-                    } else {
-                        $translation = $entity['name'];
-                    }
-                }
-
-                if ($translation === false) {
-                    $translation = $entity['entityid'];
-                }
-                $entity['translated'] = $translation;
-
-                // HTML output
-                if ($entity['entityid'] === $favourite) {
-                    $html = '<a class="metaentry favourite" href="' .
-                        $basequerystring . urlencode($entity['entityid']) . '">';
-                } else {
-                    $html = '<a class="metaentry" href="' .
-                        $basequerystring . urlencode($entity['entityid']) . '">';
-                }
-                $html .= $entity['translated'];
+                $entity['actionUrl'] = $basequerystring . urlencode($entity['entityid']);
                 if (array_key_exists('icon', $entity) && $entity['icon'] !== null) {
-                    $iconUrl = $httpUtils->resolveURL($entity['icon']);
-                    $html .= '<img alt="Icon for identity provider" class="entryicon" src="' .
-                        htmlspecialchars($iconUrl) . '" />';
+                    $entity['iconUrl'] = $httpUtils->resolveURL($entity['icon']);
                 }
-                $html .= '</a>';
-                $entity['html'] = $html;
-
-                // Save processed data
                 $metadata[$tab][$entityid] = $entity;
             }
         }
