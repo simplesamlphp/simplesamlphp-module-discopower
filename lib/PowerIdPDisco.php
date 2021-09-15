@@ -358,9 +358,9 @@ class PowerIdPDisco extends IdPDisco
     private function processMetadata(Template $t, array $metadata): array
     {
         $basequerystring = '?' .
-            'entityID=' . urlencode($t->data['entityID']) . '&amp;' .
-            'return=' . urlencode($t->data['return']) . '&amp;' .
-            'returnIDParam=' . urlencode($t->data['returnIDParam']) . '&amp;idpentityid=';
+            'entityID=' . urlencode($t->data['entityID']) . '&' .
+            'return=' . urlencode($t->data['return']) . '&' .
+            'returnIDParam=' . urlencode($t->data['returnIDParam']) . '&idpentityid=';
 
         $httpUtils = new Utils\HTTP();
         foreach ($metadata as $tab => $idps) {
