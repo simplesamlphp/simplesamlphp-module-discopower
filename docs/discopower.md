@@ -51,7 +51,7 @@ This causes SimpleSAMLphp to use DiscoPower in preference to the built-in discov
 Arranging identity providers onto tabs
 --------------------------------------
 
-DiscoPower determines its list of identity providers by parsing the [IdP remote metadata](https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-remote) in both the `saml20-idp-remote` and `shib13-idp-remote` sets.
+DiscoPower determines its list of identity providers by parsing the [IdP remote metadata](https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-remote).
 
 In order to specify which tab(s) an identity provider should be displayed on, you can set the `tabs` attribute in the entity's metadata. If you're using locally hosted metadata, you can do this by simply editing your metadata as follows:
 
