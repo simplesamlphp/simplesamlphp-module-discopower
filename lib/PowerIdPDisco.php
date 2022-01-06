@@ -301,7 +301,7 @@ class PowerIdPDisco extends IdPDisco
         $idpList = $this->idplistStructured($this->filterList($idpList));
         $preferredIdP = $this->getRecommendedIdP();
 
-        $t = new Template($this->config, 'discopower:disco.twig', 'disco');
+        $t = new Template($this->config, 'discopower:disco.twig');
         $translator = $t->getTranslator();
 
         $t->data['return'] = $this->returnURL;
