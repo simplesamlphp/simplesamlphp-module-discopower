@@ -16,6 +16,7 @@ $metadata['https://idp03.example.org'] = [
 ];
 $metadata['https://idp04.example.org'] = [
     'name' => ['en' => 'IdP 04'],
+    'UIInfo' => ['Keywords' => ['en' => ['aap','noot','mies']]],
     'tags' => ['A', 'B'],
 ];
 $metadata['https://idp05.example.org'] = [
@@ -23,5 +24,6 @@ $metadata['https://idp05.example.org'] = [
 ];
 $metadata['https://idp06.example.org'] = [
     'name' => ['en' => 'IdP 06'],
+    'UIInfo' => ['Keywords' => ['fr' => ['singue','noix','mies'], 'de' => ['Affe', 'Nuss', 'mies']]],
     'tags' => ['B'],
 ];

@@ -7,6 +7,7 @@ namespace SimpleSAML\Test\Module\discopower\Controller;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Configuration;
 use SimpleSAML\Error;
+use SimpleSAML\HTTP\RunnableResponse;
 use SimpleSAML\Module\discopower\Controller;
 use SimpleSAML\Session;
 use SimpleSAML\TestUtils\ClearStateTestCase;
@@ -20,6 +21,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class DiscoPowerTest extends ClearStateTestCase
 {
+    /** @var \SimpleSAML\Configuration */
+    protected Configuration $discoconfig;
+
     /**
      * Set up for each test.
      */
@@ -30,12 +34,22 @@ class DiscoPowerTest extends ClearStateTestCase
         $this->config = Configuration::loadFromArray(
             [
                 'module.enable' => ['discopower' => true],
+                'trusted.url.domains' => ['example.com'],
             ],
             '[ARRAY]',
             'simplesaml'
         );
 
         Configuration::setPreLoadedConfig($this->config, 'config.php');
+
+        $this->discoconfig = Configuration::loadFromArray(
+            [
+                'defaulttab' => 0,
+                'trusted.url.domains' => ['example.com'],
+            ],
+            '[ARRAY]',
+            'simplesaml'
+        );
     }
 
     public function testDiscoPowerNoDiscoParams(): void
@@ -47,6 +61,51 @@ class DiscoPowerTest extends ClearStateTestCase
 
         $c = new Controller\DiscoPower();
 
+        $this->expectException(Error\Error::class);
+        $this->expectExceptionMessage("DISCOPARAMS");
+        $r = $c->main($request);
+    }
+
+    public function testDiscoPowerHasDiscoParams(): void
+    {
+        Configuration::setPreLoadedConfig($this->discoconfig, 'module_discopower.php');
+
+        $request = Request::create(
+            '/disco.php',
+            'GET',
+        );
+        $_GET = [
+            'entityID' => 'https://example.com/sp',
+            'return'=>'https://example.com/acs',
+            'returnIDParam' => 'idpentityid'
+        ];
+        $_SERVER['REQUEST_URI'] = '/disco.php';
+
+        $c = new Controller\DiscoPower();
+
+        $r = $c->main($request);
+        $this->assertInstanceOf(RunnableResponse::class, $r);
+        $this->assertTrue($r->isSuccessful());
+    }
+
+    public function testDiscoPowerReturnUrlDisallowed(): void
+    {
+        Configuration::setPreLoadedConfig($this->discoconfig, 'module_discopower.php');
+
+        $request = Request::create(
+            '/disco.php',
+            'GET',
+        );
+        $_GET = [
+            'entityID' => 'https://example.com/sp',
+            'return'=>'https://attacker.example.org/acs',
+            'returnIDParam' => 'idpentityid'
+        ];
+        $_SERVER['REQUEST_URI'] = '/disco.php';
+
+        $c = new Controller\DiscoPower();
+
+        // All exceptions in this stage are flattened into DISCOPARAMS
         $this->expectException(Error\Error::class);
         $this->expectExceptionMessage("DISCOPARAMS");
         $r = $c->main($request);

@@ -8,6 +8,7 @@ use Exception;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Auth;
 use SimpleSAML\Configuration;
+use SimpleSAML\Locale\Language;
 use SimpleSAML\Locale\Translate;
 use SimpleSAML\Logger;
 use SimpleSAML\Module;
@@ -309,7 +310,7 @@ class PowerIdPDisco extends IdPDisco
         $t->data['entityID'] = $this->spEntityId;
         $t->data['defaulttab'] = $this->discoconfig->getValue('defaulttab', 0);
 
-        $idpList = $this->processMetadata($t, $idpList);
+        $idpList = $this->processMetadata($t, $translator->getLanguage()->getLanguage(), $idpList);
 
         $t->data['idplist'] = $idpList;
         $t->data['faventry'] = null;
@@ -352,10 +353,11 @@ class PowerIdPDisco extends IdPDisco
 
     /**
      * @param \SimpleSAML\XHTML\Template $t
+     * @param string $lang Currently selected language
      * @param array $metadata
      * @return array
      */
-    private function processMetadata(Template $t, array $metadata): array
+    private function processMetadata(Template $t, string $lang, array $metadata): array
     {
         $basequerystring = '?' .
             'entityID=' . urlencode($t->data['entityID']) . '&' .
@@ -369,6 +371,11 @@ class PowerIdPDisco extends IdPDisco
                 if (array_key_exists('icon', $entity) && $entity['icon'] !== null) {
                     $entity['iconUrl'] = $httpUtils->resolveURL($entity['icon']);
                 }
+                $entity['keywords'] = implode(' ',
+                    $entity['UIInfo']['Keywords'][$lang] ??
+                    $entity['UIInfo']['Keywords'][Language::FALLBACKLANGUAGE] ??
+                    []
+                );
                 $metadata[$tab][$entityid] = $entity;
             }
         }
