@@ -40,9 +40,8 @@
         {% if idps is not empty %}
           <div id="{{ tab }}" class="tabset_content{% if loop.first %} current{% endif %}">
           <div class="inlinesearch">
-              <p>{{ '{discopower:tabs:incremental_search}'|trans }}</p>
               <form id="idpselectform" method="get">
-                  <input class="inlinesearch" type="text" value="" name="query_{{ tab }}" id="query_{{ tab }}">
+                  <input class="inlinesearch" type="text" value="" name="query_{{ tab }}" id="query_{{ tab }}" placeholder="{{ '{discopower:tabs:incremental_search}'|trans }}" aria-label="{{ '{discopower:tabs:incremental_search}'|trans }}">
               </form>
           </div>
           <div class="metalist" id="list_{{ tab }}">

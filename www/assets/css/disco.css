@@ -2,10 +2,6 @@
     float: right;
     margin: 0em 3px .5em 1em;
 }
-.inlinesearch p {
-    font-size: 94%;
-    color: #aaa;
-}
 .inlinesearch input {
     border: 1px solid #ccc;
     padding: 2px 2px 2px 20px;
