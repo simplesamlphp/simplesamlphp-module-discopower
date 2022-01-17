@@ -3,6 +3,18 @@ DiscoPower
 
 DiscoPower is a more advanced replacement for the built-in discovery service. It supports grouping identity providers into tabs and provides mechanisms to sort, filter and search.
 
+Enable the module
+-----------------
+
+In `config.php`, search for the `module.enable` key and set `discopower` to true:
+
+```
+    'module.enable' => [
+         'discopower' => true,
+         …
+    ],
+```
+
 Configuration
 -------------
 
