@@ -4,7 +4,8 @@ jQuery.fn.liveUpdate = function (list) {
     if (list.length) {
         var rows = list.children('a'),
         cache = rows.map(function () {
-            return jQuery(this).text().toLowerCase();
+            var keywords = jQuery(this).attr('data-keywords') || "";
+            return jQuery(this).text().toLowerCase() + " " + keywords.toLowerCase();
         });
 
         this.keyup(filter).keyup().parents('form').submit(function () {

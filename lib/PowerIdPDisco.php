@@ -369,6 +369,9 @@ class PowerIdPDisco extends IdPDisco
                 if (array_key_exists('icon', $entity) && $entity['icon'] !== null) {
                     $entity['iconUrl'] = $httpUtils->resolveURL($entity['icon']);
                 }
+                $entity['keywords'] = implode(' ',
+                    $t->getEntityPropertyTranslation('Keywords', $entity['UIInfo'] ?? []) ?? []
+                );
                 $metadata[$tab][$entityid] = $entity;
             }
         }

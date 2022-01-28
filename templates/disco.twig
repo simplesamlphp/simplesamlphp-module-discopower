@@ -47,7 +47,8 @@
           <div class="metalist" id="list_{{ tab }}">
           {% for entityid, entity in idps %}
               <a class="metaentry{% if entity == faventry %} favourite{% endif %}"
-                  href="{{ entity.actionUrl }}">{{ entity|entityDisplayName }}
+                  href="{{ entity.actionUrl }}"
+                  data-keywords="{{ entity.keywords }}">{{ entity|entityDisplayName }}
               {% if entity.iconUrl is defined %}
                     <img alt="Icon for identity provider" class="entryicon" src="{{ entity.iconUrl }}" loading="lazy">
               {% endif %}

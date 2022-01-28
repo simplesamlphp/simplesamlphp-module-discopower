@@ -97,12 +97,14 @@ class PowerIdPDiscoTest extends TestCase
                 'https://idp04.example.org' => [
                     'name' => ['en' => 'IdP 04'],
                     'tags' => ['A', 'B'],
-                    'entityid' => 'https://idp04.example.org'
+                    'entityid' => 'https://idp04.example.org',
+                    'UIInfo' => ['Keywords' => ['en' => ['aap','noot','mies']]],
                 ],
                 'https://idp06.example.org' => [
                     'name' => ['en' => 'IdP 06'],
                     'tags' => ['B'],
-                    'entityid' => 'https://idp06.example.org'
+                    'entityid' => 'https://idp06.example.org',
+                    'UIInfo' => ['Keywords' => ['fr' => ['singue','noix','mies'], 'de' => ['Affe', 'Nuss', 'mies']]],
                 ],
                 'https://idp05.example.org' => [
                     'tags' => ['B'],
@@ -124,7 +126,8 @@ class PowerIdPDiscoTest extends TestCase
                 'https://idp04.example.org' => [
                     'name' => ['en' => 'IdP 04'],
                     'tags' => ['A','B',],
-                    'entityid' => 'https://idp04.example.org'
+                    'entityid' => 'https://idp04.example.org',
+                    'UIInfo' => ['Keywords' => ['en' => ['aap','noot','mies']]],
                 ],
                 'https://idp01.example.org' => [
                     'name' => ['en' => 'IdP 01'],
