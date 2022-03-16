@@ -70,15 +70,15 @@ class PowerIdPDisco extends IdPDisco
 
         $this->discoconfig = Configuration::getConfig('module_discopower.php');
 
-        $this->cdcDomain = $this->discoconfig->getString('cdc.domain', null);
+        $this->cdcDomain = $this->discoconfig->getOptionalString('cdc.domain', null);
         if ($this->cdcDomain !== null && $this->cdcDomain[0] !== '.') {
             // ensure that the CDC domain starts with a dot ('.') as required by the spec
             $this->cdcDomain = '.' . $this->cdcDomain;
         }
 
-        $this->cdcLifetime = $this->discoconfig->getInteger('cdc.lifetime', null);
+        $this->cdcLifetime = $this->discoconfig->getOptionalInteger('cdc.lifetime', null);
 
-        self::$defaultWeight = $this->discoconfig->getInteger('defaultweight', 100);
+        self::$defaultWeight = $this->discoconfig->getOptionalInteger('defaultweight', 100);
     }
 
 
@@ -144,12 +144,12 @@ class PowerIdPDisco extends IdPDisco
     {
         $slist = [];
 
-        $order = $this->discoconfig->getArray('taborder', []);
+        $order = $this->discoconfig->getOptionalArray('taborder', []);
         foreach ($order as $oe) {
             $slist[$oe] = [];
         }
 
-        $enableTabs = $this->discoconfig->getValue('tabs', null);
+        $enableTabs = $this->discoconfig->getOptionalArray('tabs', []);
 
         foreach ($list as $key => $val) {
             $tags = ['misc'];
@@ -226,7 +226,7 @@ class PowerIdPDisco extends IdPDisco
             $spmd = $this->metadata->getMetaData($this->spEntityId, 'saml20-sp-remote');
         } catch (Exception $e) {
             if (
-                $this->discoconfig->getBoolean('useunsafereturn', false)
+                $this->discoconfig->getOptionalBoolean('useunsafereturn', false)
                 && array_key_exists('return', $_GET)
             ) {
                 /*
@@ -307,7 +307,7 @@ class PowerIdPDisco extends IdPDisco
         $t->data['return'] = $this->returnURL;
         $t->data['returnIDParam'] = $this->returnIdParam;
         $t->data['entityID'] = $this->spEntityId;
-        $t->data['defaulttab'] = $this->discoconfig->getValue('defaulttab', 0);
+        $t->data['defaulttab'] = $this->discoconfig->getOptionalInteger('defaulttab', 0);
 
         $idpList = $this->processMetadata($t, $idpList);
 
@@ -333,11 +333,11 @@ class PowerIdPDisco extends IdPDisco
         $session->setData('discopower:tabList', 'defaulttab', $t->data['defaulttab']);
 
         $httpUtils = new Utils\HTTP();
-        $t->data['score'] = $this->discoconfig->getValue('score', 'quicksilver');
+        $t->data['score'] = $this->discoconfig->getOptionalString('score', 'quicksilver');
         $t->data['preferredidp'] = $preferredIdP;
         $t->data['urlpattern'] = htmlspecialchars($httpUtils->getSelfURLNoQuery());
-        $t->data['rememberenabled'] = $this->config->getBoolean('idpdisco.enableremember', false);
-        $t->data['rememberchecked'] = $this->config->getBoolean('idpdisco.rememberchecked', false);
+        $t->data['rememberenabled'] = $this->config->getOptionalBoolean('idpdisco.enableremember', false);
+        $t->data['rememberchecked'] = $this->config->getOptionalBoolean('idpdisco.rememberchecked', false);
         foreach (array_keys($idpList) as $tab) {
             $translatableTag = "{discopower:tabs:$tab}";
             if ($translator::translateSingularGettext($translatableTag) === $translatableTag) {
