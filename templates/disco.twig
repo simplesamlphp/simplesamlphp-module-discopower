@@ -2,11 +2,12 @@
 {% extends "base.twig" %}
 
 {% block preload %}
-    <link rel="stylesheet" media="screen" href="{{ asset('css/uitheme1.12.1/jquery-ui.min.css', 'discopower') }}">
+    <link rel="stylesheet" media="screen" href="{{ asset('css/uitheme1.13.1/jquery-ui.min.css', 'discopower') }}">
     <link rel="stylesheet" media="screen" href="{{ asset('css/disco.css', 'discopower') }}">
 {% endblock %}
 {% block postload %}
-    <script src="{{ asset('js/jquery-ui-1.12.1.min.js', 'discopower') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js', 'discopower') }}"></script>
+    <script src="{{ asset('js/jquery-ui-1.13.1.min.js', 'discopower') }}"></script>
     <script src="{{ asset('js/jquery.livesearch.js', 'discopower') }}"></script>
     <script src="{{ asset('js/' ~ score ~ '.js', 'discopower') }}"></script>
     <script src="{{ asset('js/tablist.js', 'discopower') }}"></script>
