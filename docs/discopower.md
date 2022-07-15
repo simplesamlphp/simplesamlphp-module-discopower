@@ -1,22 +1,19 @@
-DiscoPower
-==========
+# DiscoPower
 
 DiscoPower is a more advanced replacement for the built-in discovery service. It supports grouping identity providers into tabs and provides mechanisms to sort, filter and search.
 
-Enable the module
------------------
+## Enable the module
 
 In `config.php`, search for the `module.enable` key and set `discopower` to true:
 
-```
+```php
     'module.enable' => [
          'discopower' => true,
          …
     ],
 ```
 
-Configuration
--------------
+## Configuration
 
 DiscoPower expects to find its configuration in `config/module_discopower.php`. There is a sample configuration in [config-templates](../config-templates/) that can be copied and adapted.
 
@@ -43,8 +40,7 @@ DiscoPower expects to find its configuration in `config/module_discopower.php`. 
 `useunsafereturn`
 :   See [Filtering on a protocol bridge](#filtering-on-a-protocol-bridge). Defaults to `false`.
 
-Enabling DiscoPower for a service
----------------------------------
+## Enabling DiscoPower for a service
 
 To enable the use of DiscoPower, you need to edit your [service provider configuration](https://simplesamlphp.org/docs/stable/simplesamlphp-sp) in `config/authsources.php` and set the `discoURL` parameter to point at the DiscoPower module:
 
@@ -60,8 +56,7 @@ $config = [
 
 This causes SimpleSAMLphp to use DiscoPower in preference to the built-in discovery interface.
 
-Arranging identity providers onto tabs
---------------------------------------
+## Arranging identity providers onto tabs
 
 DiscoPower determines its list of identity providers by parsing the [IdP remote metadata](https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-remote).
 
@@ -74,11 +69,9 @@ $metadata['https://idp1.example.net/'] = [
 ];
 ```
 
-
 The order in which these tags is displayed is controlled by the `taborder` parameter in `config/module_discopower.php`.
 
-Filtering identity providers
-----------------------------
+## Filtering identity providers
 
 You can filter the tabs or individual entities displayed to particular services by editing their metadata entry in saml20-sp-remote to include a `discopower.filter` stanza.
 
@@ -104,8 +97,7 @@ In this scenario, the only way to infer the entityId is from the `return` parame
 
 However, if, as is often the case, you're not worried if users learn all the IdPs you support and are merely filtering to improve the user interface, then you may consider this relatively safe. In this case, you can enable support for filtering over the protocol bridge by setting the `useunsafereturn` option in `config/module_discopower.php` to `true`.
 
-Changing the display order
----------------------------
+## Changing the display order
 
 By default, DiscoPower sorts identity providers alphabetically by the English name (specified by the `name` parameter in metadata). Where providers do not have names, they're sorted by their `entityId`. However, providers with only an entityId will always appear below those with an English name.
 
@@ -130,7 +122,6 @@ More complex sorting can be done with a hook. To do this, create a file named `h
 
 where the `$entities` parameter is a reference to an array containing the metadata objects for each entity on a given tab. This is suitable for passing to a function like [`uasort()`](https://www.php.net/manual/en/function.uasort.php), but you're free to sort it using any method you wish.
 
-Interacting with metarefresh
-----------------------------
+## Interacting with metarefresh
 
 If you're making use of the [metarefresh](https://github.com/simplesamlphp/simplesamlphp-module-metarefresh) module for automated metadata management, then you need to add any metadata paramters into the appropriate `template` in `config/config-metarefresh.php` so that they get applied each time metadata is refreshed.
