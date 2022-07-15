@@ -15,14 +15,14 @@
 
 {% block content %}
     {% if faventry is not empty %}
-    <div class="favourite">{{ '{disco:previous_auth}'|trans }}
+    <div class="favourite">{{ 'You have previously chosen to authenticate at'|trans }}
         <strong>{{ faventry|entityDisplayName }}</strong><br>
         <form id="idpselectform" class="pure-form" method="get" action="{{ urlpattern }}">
             <input type="hidden" name="entityID" value="{{ entityID }}">
             <input type="hidden" name="return" value="{{ return }}">
             <input type="hidden" name="returnIDParam" value="{{ returnIDParam }}">
             <input type="hidden" name="idpentityid" value="{{ faventry.entityid }}">
-            <input type="submit" name="formsubmit" id="favouritesubmit" value="{{ '{disco:login_at}'|trans }} {{ faventry|entityDisplayName }}" class="pure-button pure-button-primary">
+            <input type="submit" name="formsubmit" id="favouritesubmit" value="{{ 'Login at'|trans }} {{ faventry|entityDisplayName }}" class="pure-button pure-button-primary">
     </form>
     </div>
     {% endif %}
