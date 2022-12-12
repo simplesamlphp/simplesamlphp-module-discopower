@@ -22,7 +22,11 @@ use Symfony\Component\HttpFoundation\Request;
 class DiscoPowerTest extends ClearStateTestCase
 {
     /** @var \SimpleSAML\Configuration */
+    protected Configuration $config;
+
+    /** @var \SimpleSAML\Configuration */
     protected Configuration $discoconfig;
+
 
     /**
      * Set up for each test.

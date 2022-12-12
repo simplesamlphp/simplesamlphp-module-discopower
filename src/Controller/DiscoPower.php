@@ -32,7 +32,7 @@ class DiscoPower
             // An error here should be caused by invalid query parameters
             throw new Error\Error('DISCOPARAMS', $exception);
         }
-        
+
         try {
             return new RunnableResponse([$discoHandler, 'handleRequest'], []);
         } catch (Exception $exception) {
