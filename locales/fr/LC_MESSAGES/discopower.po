@@ -93,8 +93,8 @@ msgstr "Divers"
 msgid "Finland"
 msgstr "Finlande"
 
-msgid "Europe (eduGAIN)"
-msgstr "Europe (eduGAIN)"
+msgid "eduGAIN"
+msgstr "eduGAIN"
 
 msgid "InCommon"
-msgstr "En Commun"
+msgstr "InCommon"
