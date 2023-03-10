@@ -8,7 +8,11 @@
     <projectFiles>
         <directory name="config-templates" />
         <directory name="src" />
-        <directory name="www" />
+
+        <!-- Ignore certain directories -->
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
