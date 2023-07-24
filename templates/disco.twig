@@ -23,7 +23,13 @@
             <input type="hidden" name="returnIDParam" value="{{ returnIDParam }}">
             <input type="hidden" name="idpentityid" value="{{ faventry.entityid }}">
             <input type="submit" name="formsubmit" id="favouritesubmit" value="{{ 'Login at'|trans }} {{ faventry|entityDisplayName }}" class="pure-button pure-button-primary">
-    </form>
+            {% if rememberenabled %}
+            <label for="remember" id="favouriteremember" class="pure-checkbox" title="{{ "The institution you've chosen will be saved in this browser so that you do not need to select it each time you login."|trans }}">
+                <input type="checkbox" name="remember" id="remember" value="1"{% if rememberchecked %} checked{% endif %}>
+                {{ 'Remember my choice' | trans }}
+            </label>
+            {% endif %}
+        </form>
     </div>
     {% endif %}
 
