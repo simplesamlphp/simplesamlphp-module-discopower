@@ -53,11 +53,11 @@ class DiscoPower
         $tabs = $session->getData('discopower:tabList', 'tabs');
         $faventry = $session->getData('discopower:tabList', 'faventry');
         $defaulttab = $session->getData('discopower:tabList', 'defaulttab');
-        
+
         if (!is_array($tabs)) {
             throw new Error\Exception('Could not get tab list from session');
         }
-        
+
         $response = new JsonResponse();
 
         // handle JSONP requests
@@ -68,7 +68,7 @@ class DiscoPower
             }
             $response->setCallback($callback);
         }
-       
+
         $response->setData(
             [
                 'faventry' => $faventry,
