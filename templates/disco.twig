@@ -2,12 +2,12 @@
 {% extends "base.twig" %}
 
 {% block preload %}
-    <link rel="stylesheet" media="screen" href="{{ asset('css/ui-theme-1.13.2/jquery-ui.min.css', 'discopower') }}">
+    <link rel="stylesheet" media="screen" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" media="screen" href="{{ asset('css/disco.css', 'discopower') }}">
 {% endblock %}
 {% block postload %}
-    <script src="{{ asset('js/jquery-3.6.0.min.js', 'discopower') }}"></script>
-    <script src="{{ asset('js/jquery-ui-1.13.2.min.js', 'discopower') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="{{ asset('js/jquery.livesearch.js', 'discopower') }}"></script>
     <script src="{{ asset('js/' ~ score ~ '.js', 'discopower') }}"></script>
     <script src="{{ asset('js/tablist.js', 'discopower') }}"></script>
@@ -34,7 +34,7 @@
     {% endif %}
 
     <div id="tabdiv">
-        <ul class="tabset_tabs">
+        <ul class="tabset-tabs">
         {% for tab, idps in idplist %}
             {% if idps is not empty %}
             {# NOTE: pass through raw to allow HTML in tabNames, e.g. Belgi&euml; #}
@@ -45,7 +45,7 @@
 
         {% for tab, idps in idplist %}
         {% if idps is not empty %}
-          <div id="{{ tab }}" class="tabset_content{% if loop.first %} current{% endif %}">
+          <div id="{{ tab }}" class="tabset-content{% if loop.first %} current{% endif %}">
           <div class="inlinesearch">
               <form id="idpselectform" method="get">
                   <input class="inlinesearch" type="text" value="" name="query_{{ tab }}" id="query_{{ tab }}" placeholder="{{ '{discopower:tabs:incremental_search}'|trans }}" aria-label="{{ '{discopower:tabs:incremental_search}'|trans }}">

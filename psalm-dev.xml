@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<psalm
+    name="SimpleSAMLphp testsuite"
+    useDocblockTypes="true"
+    errorLevel="4"
+    reportMixedIssues="false"
+    hideExternalErrors="true"
+    allowStringToStandInForClass="true"
+>
+    <projectFiles>
+        <directory name="tests" />
+
+        <!-- Ignore certain directories -->
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <!-- Ignore UnresolvableInclude on CLI-scripts -->
+        <UnresolvableInclude>
+            <errorLevel type="suppress">
+                <file name="tests/bootstrap.php" />
+            </errorLevel>
+        </UnresolvableInclude>
+
+        <!-- Ignore PossiblyUndefinedGlobalVariable on metadata -->
+        <PossiblyUndefinedGlobalVariable>
+            <errorLevel type="suppress">
+                <file name="tests/src/test-metadata/saml20-idp-remote.php" />
+            </errorLevel>
+        </PossiblyUndefinedGlobalVariable>
+    </issueHandlers>
+</psalm>

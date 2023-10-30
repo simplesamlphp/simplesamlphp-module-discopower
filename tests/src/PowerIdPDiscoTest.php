@@ -14,34 +14,29 @@ use SimpleSAML\Module\discopower\PowerIdPDisco;
 class PowerIdPDiscoTest extends TestCase
 {
     /** @var \SimpleSAML\Module\discopower\PowerIdPDisco */
-    private PowerIdPDisco $discoHandler;
-
-    /** @var \SimpleSAML\Configuration */
-    private Configuration $config;
-
-    /** @var \SimpleSAML\Configuration */
-    private Configuration $discoConfig;
+    private static PowerIdPDisco $discoHandler;
 
     /** @var array */
-    private array $idpList;
+    private static array $idpList;
+
 
     /**
      */
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->config = Configuration::loadFromArray([
+        $config = Configuration::loadFromArray([
             'module.enable' => ['discopower' => true],
             'metadata.sources' => [
                 ['type' => 'flatfile', 'directory' => __DIR__ . '/test-metadata'],
             ],
         ], '[ARRAY]', 'simplesaml');
-        Configuration::setPreLoadedConfig($this->config, 'config.php');
+        Configuration::setPreLoadedConfig($config, 'config.php');
 
-        $this->discoConfig = Configuration::loadFromArray([
+        $discoConfig = Configuration::loadFromArray([
             'defaulttab' => 0,
             'taborder' => ['B', 'A'],
         ], '[ARRAY]', 'module_discopower');
-        Configuration::setPreLoadedConfig($this->discoConfig, 'module_discopower.php');
+        Configuration::setPreLoadedConfig($discoConfig, 'module_discopower.php');
 
         /* spoof the request*/
         $_GET['entityID'] = 'https://sp01.example.net/sp';
@@ -50,12 +45,12 @@ class PowerIdPDiscoTest extends TestCase
         $_SERVER['SERVER_NAME'] = 'sp01.example.net';
         $_SERVER['REQUEST_URI'] = '/simplesaml/module.php/discopower/disco.php';
 
-        $this->discoHandler = new PowerIdPDisco(
+        self::$discoHandler = new PowerIdPDisco(
             ['saml20-idp-remote'],
             'poweridpdisco'
         );
 
-        $this->idpList = MetaDataStorageHandler::getMetadataHandler()->getList('saml20-idp-remote');
+        self::$idpList = MetaDataStorageHandler::getMetadataHandler()->getList('saml20-idp-remote');
     }
 
     /**
@@ -64,7 +59,7 @@ class PowerIdPDiscoTest extends TestCase
      */
     public function testPowerIdPDisco(): void
     {
-        $this->assertInstanceOf(PowerIdPDisco::class, $this->discoHandler);
+        $this->assertInstanceOf(PowerIdPDisco::class, self::$discoHandler);
     }
 
     /**
@@ -72,12 +67,12 @@ class PowerIdPDiscoTest extends TestCase
      */
     public function testGetIdPList(): void
     {
-        $refl = new ReflectionClass($this->discoHandler);
+        $refl = new ReflectionClass(self::$discoHandler);
         $getIdPList = $refl->getMethod('getIdPList');
         $getIdPList->setAccessible(true);
-        $idpList = $getIdPList->invoke($this->discoHandler);
+        $idpList = $getIdPList->invoke(self::$discoHandler);
 
-        $this->assertEquals($this->idpList, $idpList);
+        $this->assertEquals(self::$idpList, $idpList);
     }
 
     /**
@@ -87,10 +82,10 @@ class PowerIdPDiscoTest extends TestCase
      */
     public function testIdplistStructured(): void
     {
-        $refl = new ReflectionClass($this->discoHandler);
+        $refl = new ReflectionClass(self::$discoHandler);
         $idplistStructured = $refl->getMethod('idplistStructured');
         $idplistStructured->setAccessible(true);
-        $idpList = $idplistStructured->invokeArgs($this->discoHandler, [$this->idpList]);
+        $idpList = $idplistStructured->invokeArgs(self::$discoHandler, [self::$idpList]);
 
         $expected = [
             'B' => [

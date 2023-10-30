@@ -22,20 +22,17 @@ use Symfony\Component\HttpFoundation\Request;
 class DiscoPowerTest extends ClearStateTestCase
 {
     /** @var \SimpleSAML\Configuration */
-    protected Configuration $config;
-
-    /** @var \SimpleSAML\Configuration */
-    protected Configuration $discoconfig;
+    private static Configuration $discoconfig;
 
 
     /**
-     * Set up for each test.
+     * Set up for before tests.
      */
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         parent::setUp();
 
-        $this->config = Configuration::loadFromArray(
+        $config = Configuration::loadFromArray(
             [
                 'module.enable' => ['discopower' => true],
                 'trusted.url.domains' => ['example.com'],
@@ -44,9 +41,9 @@ class DiscoPowerTest extends ClearStateTestCase
             'simplesaml'
         );
 
-        Configuration::setPreLoadedConfig($this->config, 'config.php');
+        Configuration::setPreLoadedConfig($config, 'config.php');
 
-        $this->discoconfig = Configuration::loadFromArray(
+        self::$discoconfig = Configuration::loadFromArray(
             [
                 'defaulttab' => 0,
                 'trusted.url.domains' => ['example.com'],
@@ -72,7 +69,7 @@ class DiscoPowerTest extends ClearStateTestCase
 
     public function testDiscoPowerHasDiscoParams(): void
     {
-        Configuration::setPreLoadedConfig($this->discoconfig, 'module_discopower.php');
+        Configuration::setPreLoadedConfig(self::$discoconfig, 'module_discopower.php');
 
         $request = Request::create(
             '/disco.php',
@@ -80,7 +77,7 @@ class DiscoPowerTest extends ClearStateTestCase
         );
         $_GET = [
             'entityID' => 'https://example.com/sp',
-            'return'=>'https://example.com/acs',
+            'return' => 'https://example.com/acs',
             'returnIDParam' => 'idpentityid'
         ];
         $_SERVER['REQUEST_URI'] = '/disco.php';
@@ -94,7 +91,7 @@ class DiscoPowerTest extends ClearStateTestCase
 
     public function testDiscoPowerReturnUrlDisallowed(): void
     {
-        Configuration::setPreLoadedConfig($this->discoconfig, 'module_discopower.php');
+        Configuration::setPreLoadedConfig(self::$discoconfig, 'module_discopower.php');
 
         $request = Request::create(
             '/disco.php',
@@ -102,7 +99,7 @@ class DiscoPowerTest extends ClearStateTestCase
         );
         $_GET = [
             'entityID' => 'https://example.com/sp',
-            'return'=>'https://attacker.example.org/acs',
+            'return' => 'https://attacker.example.org/acs',
             'returnIDParam' => 'idpentityid'
         ];
         $_SERVER['REQUEST_URI'] = '/disco.php';
@@ -112,7 +109,7 @@ class DiscoPowerTest extends ClearStateTestCase
         // All exceptions in this stage are flattened into DISCOPARAMS
         $this->expectException(Error\Error::class);
         $this->expectExceptionMessage("DISCOPARAMS");
-        $r = $c->main($request);
+        $c->main($request);
     }
 
     public function testTablistJson(): void
@@ -132,7 +129,10 @@ class DiscoPowerTest extends ClearStateTestCase
         $r = $c->tablist($request);
         $this->assertTrue($r->isSuccessful());
         $this->assertEquals('application/json', $r->headers->get('Content-Type'));
-        $this->assertEquals('{"faventry":"http:\/\/example.org\/idp","default":"Nederland","tabs":["Frankrijk","Nederland","Duitsland"]}', $r->getContent());
+        $this->assertEquals(
+            '{"faventry":"http:\/\/example.org\/idp","default":"Nederland","tabs":["Frankrijk","Nederland","Duitsland"]}',
+            $r->getContent(),
+        );
 
         $request = Request::create(
             '/tablist',
@@ -145,7 +145,10 @@ class DiscoPowerTest extends ClearStateTestCase
         $r = $c->tablist($request);
         $this->assertTrue($r->isSuccessful());
         $this->assertEquals('text/javascript', $r->headers->get('Content-Type'));
-        $this->assertEquals('/**/aapnoot({"faventry":"http:\/\/example.org\/idp","default":"Nederland","tabs":["Frankrijk","Nederland","Duitsland"]});', $r->getContent());
+        $this->assertEquals(
+            '/**/aapnoot({"faventry":"http:\/\/example.org\/idp","default":"Nederland","tabs":["Frankrijk","Nederland","Duitsland"]});',
+            $r->getContent(),
+        );
     }
 
     public function testTablistJsonNoSession(): void
