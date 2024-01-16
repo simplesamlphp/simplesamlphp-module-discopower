@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\discopower\Controller;
 
 use Exception;
-use SimpleSAML\Configuration;
 use SimpleSAML\Error;
 use SimpleSAML\HTTP\RunnableResponse;
 use SimpleSAML\Module\discopower\PowerIdPDisco;
 use SimpleSAML\Session;
-use SimpleSAML\XHTML\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DiscoPower
 {

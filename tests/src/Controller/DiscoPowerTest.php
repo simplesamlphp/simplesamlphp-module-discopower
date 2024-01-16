@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Module\discopower\Controller;
 
-use PHPUnit\Framework\TestCase;
 use SimpleSAML\Configuration;
 use SimpleSAML\Error;
 use SimpleSAML\HTTP\RunnableResponse;
 use SimpleSAML\Module\discopower\Controller;
 use SimpleSAML\Session;
 use SimpleSAML\TestUtils\ClearStateTestCase;
-use SimpleSAML\XHTML\Template;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

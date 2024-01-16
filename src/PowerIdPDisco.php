@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\Module\discopower;
 
 use Exception;
-use SimpleSAML\Assert\Assert;
 use SimpleSAML\Auth;
 use SimpleSAML\Configuration;
-use SimpleSAML\Locale\Translate;
 use SimpleSAML\Logger;
 use SimpleSAML\Module;
 use SimpleSAML\Session;

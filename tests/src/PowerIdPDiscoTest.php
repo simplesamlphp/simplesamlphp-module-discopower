@@ -6,7 +6,6 @@ namespace SimpleSAML\Test\Module\discopower;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use SAML2\Constants;
 use SimpleSAML\Configuration;
 use SimpleSAML\Metadata\MetaDataStorageHandler;
 use SimpleSAML\Module\discopower\PowerIdPDisco;
