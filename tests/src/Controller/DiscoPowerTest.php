@@ -28,7 +28,7 @@ class DiscoPowerTest extends ClearStateTestCase
      */
     public static function setUpBeforeClass(): void
     {
-        parent::setUp();
+        parent::setUpBeforeClass();
 
         $config = Configuration::loadFromArray(
             [
