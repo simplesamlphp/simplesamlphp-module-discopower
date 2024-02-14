@@ -6,7 +6,7 @@
     reportMixedIssues="false"
 >
     <projectFiles>
-        <directory name="config-templates" />
+        <directory name="config" />
         <directory name="src" />
 
         <!-- Ignore certain directories -->
