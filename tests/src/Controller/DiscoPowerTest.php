@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Module\discopower\Controller;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use SimpleSAML\Configuration;
 use SimpleSAML\Error;
 use SimpleSAML\HTTP\RunnableResponse;
@@ -14,9 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Set of tests for the controllers in the "discopwer" module.
- *
- * @covers \SimpleSAML\Module\discopower\Controller\DiscoPower
  */
+#[CoversClass(Controller\DiscoPower::class)]
 class DiscoPowerTest extends ClearStateTestCase
 {
     /** @var \SimpleSAML\Configuration */

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Module\discopower;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use SimpleSAML\Configuration;
 use SimpleSAML\Metadata\MetaDataStorageHandler;
 use SimpleSAML\Module\discopower\PowerIdPDisco;
 
+#[CoversClass(PowerIdPDisco::class)]
 class PowerIdPDiscoTest extends TestCase
 {
     /** @var \SimpleSAML\Module\discopower\PowerIdPDisco */
@@ -53,8 +55,6 @@ class PowerIdPDiscoTest extends TestCase
     }
 
     /**
-     * @covers \SimpleSAML\Module\discopower\PowerIdPDisco
-     * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::__construct
      */
     public function testPowerIdPDisco(): void
     {
@@ -62,7 +62,6 @@ class PowerIdPDiscoTest extends TestCase
     }
 
     /**
-     * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::getIdPList
      */
     public function testGetIdPList(): void
     {
@@ -75,9 +74,6 @@ class PowerIdPDiscoTest extends TestCase
     }
 
     /**
-     * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::idplistStructured
-     * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::getIdPList
-     * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::mcmp
      */
     public function testIdplistStructured(): void
     {
@@ -137,7 +133,6 @@ class PowerIdPDiscoTest extends TestCase
     }
 
     /**
-     * @covers \SimpleSAML\Module\discopower\PowerIdPDisco::mcmp
      */
     public function testmcmp(): void
     {
