@@ -14,7 +14,7 @@ use SimpleSAML\TestUtils\ClearStateTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Set of tests for the controllers in the "discopwer" module.
+ * Set of tests for the controllers in the "discopower" module.
  */
 #[CoversClass(Controller\DiscoPower::class)]
 class DiscoPowerTest extends ClearStateTestCase
@@ -24,11 +24,11 @@ class DiscoPowerTest extends ClearStateTestCase
 
 
     /**
-     * Set up for before tests.
+     * Set up for each test.
      */
-    public static function setUpBeforeClass(): void
+    protected function setUp(): void
     {
-        parent::setUpBeforeClass();
+        parent::setUp();
 
         $config = Configuration::loadFromArray(
             [
