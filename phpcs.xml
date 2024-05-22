@@ -9,7 +9,6 @@
     <!-- Use this to exclude paths. You can have multiple patterns -->
     <!--<exclude-pattern>*/tests/*</exclude-pattern>-->
     <!--<exclude-pattern>*/other/*</exclude-pattern>-->
-    <exclude-pattern>www/assets/*</exclude-pattern>
 
     <file>config</file>
     <file>public</file>
