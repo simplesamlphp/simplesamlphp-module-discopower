@@ -49,7 +49,9 @@ To enable the use of DiscoPower, you need to edit your [service provider configu
 $config = [
     'default-sp' => [
         'saml:SP',
-        'discoURL' => 'https://sp1.example.org/simplesaml/module.php/discopower/disco.php',
+        'entityID' => …,
+        …
+        'discoURL' => '/simplesaml/module.php/discopower/disco.php',
     ],
 ];
 ```
