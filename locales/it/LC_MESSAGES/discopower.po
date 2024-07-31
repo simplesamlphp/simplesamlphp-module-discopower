@@ -1,0 +1,100 @@
+
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SimpleSAMLphp 2.2.2\n"
+"Report-Msgid-Bugs-To: simplesamlphp-translation@googlegroups.com\n"
+"POT-Creation-Date: 2024-07-28 09:00+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: it\n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+msgid "{discopower:tabs:ukacessfederation}"
+msgstr "UK Access Federation"
+
+msgid "{discopower:tabs:switzerland}"
+msgstr "Svizzera"
+
+msgid "{discopower:tabs:greece}"
+msgstr "Grecia"
+
+msgid "{discopower:tabs:southafrica}"
+msgstr "Africa del Sud"
+
+msgid "{discopower:tabs:kalmar}"
+msgstr "Kalmar"
+
+msgid "{discopower:tabs:netherlands}"
+msgstr "Paesi Bassi"
+
+msgid "{discopower:tabs:denmark}"
+msgstr "Danimarca"
+
+msgid "{discopower:tabs:sweden}"
+msgstr "Svezia"
+
+msgid "{discopower:tabs:edugain}"
+msgstr "Europa (eduGAIN)"
+
+msgid "{discopower:tabs:iceland}"
+msgstr "Islanda"
+
+msgid "{discopower:tabs:finland}"
+msgstr "Finlandia"
+
+msgid "{discopower:tabs:incommon}"
+msgstr "InCommon"
+
+msgid "{discopower:tabs:norway}"
+msgstr "Norvegia"
+
+msgid "{discopower:tabs:misc}"
+msgstr "IdP vari"
+
+msgid "{discopower:tabs:incremental_search}"
+msgstr "Ricerca incrementale..."
+
+msgid "Sweden"
+msgstr "Svezia"
+
+msgid "Denmark"
+msgstr "Danimarca"
+
+msgid "Iceland"
+msgstr "Islanda"
+
+msgid "UK Access Federation"
+msgstr "UK Access Federation"
+
+msgid "Kalmar"
+msgstr "Kalmar"
+
+msgid "Switzerland"
+msgstr "Svizzera"
+
+msgid "Norway"
+msgstr "Norvegia"
+
+msgid "Greece"
+msgstr "Grecia"
+
+msgid "South Africa"
+msgstr "Africa del Sud"
+
+msgid "Miscellaneous"
+msgstr "Altri"
+
+msgid "Finland"
+msgstr "Finlandia"
+
+msgid "eduGAIN"
+msgstr "eduGAIN"
+
+msgid "InCommon"
+msgstr "InCommon"
