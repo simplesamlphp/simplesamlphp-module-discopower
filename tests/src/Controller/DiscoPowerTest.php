@@ -36,7 +36,7 @@ class DiscoPowerTest extends ClearStateTestCase
                 'trusted.url.domains' => ['example.com'],
             ],
             '[ARRAY]',
-            'simplesaml'
+            'simplesaml',
         );
 
         Configuration::setPreLoadedConfig($config, 'config.php');
@@ -47,7 +47,7 @@ class DiscoPowerTest extends ClearStateTestCase
                 'trusted.url.domains' => ['example.com'],
             ],
             '[ARRAY]',
-            'simplesaml'
+            'simplesaml',
         );
     }
 
@@ -55,7 +55,7 @@ class DiscoPowerTest extends ClearStateTestCase
     {
         $request = Request::create(
             '/disco.php',
-            'GET'
+            'GET',
         );
 
         $c = new Controller\DiscoPower();
@@ -76,7 +76,7 @@ class DiscoPowerTest extends ClearStateTestCase
         $_GET = [
             'entityID' => 'https://example.com/sp',
             'return' => 'https://example.com/acs',
-            'returnIDParam' => 'idpentityid'
+            'returnIDParam' => 'idpentityid',
         ];
         $_SERVER['REQUEST_URI'] = '/disco.php';
 
@@ -98,7 +98,7 @@ class DiscoPowerTest extends ClearStateTestCase
         $_GET = [
             'entityID' => 'https://example.com/sp',
             'return' => 'https://attacker.example.org/acs',
-            'returnIDParam' => 'idpentityid'
+            'returnIDParam' => 'idpentityid',
         ];
         $_SERVER['REQUEST_URI'] = '/disco.php';
 
@@ -119,7 +119,7 @@ class DiscoPowerTest extends ClearStateTestCase
 
         $request = Request::create(
             '/tablist',
-            'GET'
+            'GET',
         );
 
         $c = new Controller\DiscoPower();

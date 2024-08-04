@@ -24,7 +24,7 @@ class DiscoPower
         try {
             $discoHandler = new PowerIdPDisco(
                 ['saml20-idp-remote'],
-                'poweridpdisco'
+                'poweridpdisco',
             );
         } catch (Exception $exception) {
             // An error here should be caused by invalid query parameters
@@ -72,7 +72,7 @@ class DiscoPower
                 'faventry' => $faventry,
                 'default' => $defaulttab,
                 'tabs' => $tabs,
-            ]
+            ],
         );
         return $response;
     }

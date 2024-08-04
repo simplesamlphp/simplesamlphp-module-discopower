@@ -369,7 +369,7 @@ class PowerIdPDisco extends IdPDisco
                 }
                 $entity['keywords'] = implode(
                     ' ',
-                    $t->getEntityPropertyTranslation('Keywords', $entity['UIInfo'] ?? []) ?? []
+                    $t->getEntityPropertyTranslation('Keywords', $entity['UIInfo'] ?? []) ?? [],
                 );
                 $metadata[$tab][$entityid] = $entity;
             }
