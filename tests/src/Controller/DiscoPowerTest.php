@@ -7,11 +7,10 @@ namespace SimpleSAML\Test\Module\discopower\Controller;
 use PHPUnit\Framework\Attributes\CoversClass;
 use SimpleSAML\Configuration;
 use SimpleSAML\Error;
-use SimpleSAML\HTTP\RunnableResponse;
 use SimpleSAML\Module\discopower\Controller;
 use SimpleSAML\Session;
 use SimpleSAML\TestUtils\ClearStateTestCase;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\{Request, StreamedResponse};
 
 /**
  * Set of tests for the controllers in the "discopower" module.
@@ -83,7 +82,7 @@ class DiscoPowerTest extends ClearStateTestCase
         $c = new Controller\DiscoPower();
 
         $r = $c->main($request);
-        $this->assertInstanceOf(RunnableResponse::class, $r);
+        $this->assertInstanceOf(StreamedResponse::class, $r);
         $this->assertTrue($r->isSuccessful());
     }
 

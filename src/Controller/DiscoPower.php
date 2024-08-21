@@ -6,20 +6,17 @@ namespace SimpleSAML\Module\discopower\Controller;
 
 use Exception;
 use SimpleSAML\Error;
-use SimpleSAML\HTTP\RunnableResponse;
 use SimpleSAML\Module\discopower\PowerIdPDisco;
 use SimpleSAML\Session;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{JsonResponse, Request, Response, StreamedResponse};
 
 class DiscoPower
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request The current request.
-     * @return \SimpleSAML\HTTP\RunnableResponse
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
-    public function main(Request $request): RunnableResponse
+    public function main(Request $request): StreamedResponse
     {
         try {
             $discoHandler = new PowerIdPDisco(
@@ -32,7 +29,7 @@ class DiscoPower
         }
 
         try {
-            return new RunnableResponse([$discoHandler, 'handleRequest'], []);
+            return new StreamedResponse([$discoHandler, 'handleRequest']);
         } catch (Exception $exception) {
             // An error here should be caused by metadata
             throw new Error\Error('METADATA', $exception);
