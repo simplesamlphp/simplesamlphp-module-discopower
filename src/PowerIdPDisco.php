@@ -292,7 +292,7 @@ class PowerIdPDisco extends IdPDisco
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handleRequest(): Template
+    public function handleRequest(): Response
     {
         $this->start();
 
