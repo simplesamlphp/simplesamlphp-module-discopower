@@ -36,7 +36,7 @@
         "php": "^8.1",
 
         "simplesamlphp/assert": "^1.0.0",
-        "simplesamlphp/simplesamlphp": "^2.2.0",
+        "simplesamlphp/simplesamlphp": "dev-bugfix/discopwer-duplicate-date-header",
         "simplesamlphp/composer-module-installer": "^1.3.4",
         "symfony/http-foundation": "^6.4.0"
     },
