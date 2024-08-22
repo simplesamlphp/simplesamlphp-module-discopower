@@ -296,6 +296,10 @@ class PowerIdPDisco extends IdPDisco
     public function handleRequest(): Response
     {
         $this->start();
+        $result = $this->start();
+        if ($result !== null) {
+            return $result;
+        }
 
         // no choice made. Show discovery service page
         $idpList = $this->getIdPList();
