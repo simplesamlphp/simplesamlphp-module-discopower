@@ -13,6 +13,7 @@ use SimpleSAML\Session;
 use SimpleSAML\Utils;
 use SimpleSAML\XHTML\IdPDisco;
 use SimpleSAML\XHTML\Template;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * This class implements a generic IdP discovery service, for use in various IdP discovery service pages. This should
