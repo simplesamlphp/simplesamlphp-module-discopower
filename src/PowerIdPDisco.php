@@ -289,8 +289,10 @@ class PowerIdPDisco extends IdPDisco
      * Handles a request to this discovery service.
      *
      * The IdP disco parameters should be set before calling this function.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handleRequest(): void
+    public function handleRequest(): Template
     {
         $this->start();
 
@@ -344,7 +346,7 @@ class PowerIdPDisco extends IdPDisco
                 $t->data['tabNames'][$tab] = $translator::noop($translatableTag);
             }
         }
-        $t->send();
+        return $t;
     }
 
 
