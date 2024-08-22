@@ -14,7 +14,7 @@ class DiscoPower
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request The current request.
-     * @return \SimpleSAML\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function main(Request $request): Response
     {
