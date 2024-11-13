@@ -339,6 +339,13 @@ class PowerIdPDisco extends IdPDisco
         $t->data['rememberenabled'] = $this->config->getOptionalBoolean('idpdisco.enableremember', false);
         $t->data['rememberchecked'] = $this->config->getOptionalBoolean('idpdisco.rememberchecked', false);
         foreach (array_keys($idpList) as $tab) {
+            Assert::regex(
+                $tab,
+                '/^[a-z_][a-z0-9_-]+$/',
+                'Tags can contain alphanumeric characters, hyphens and underscores.'
+                . ' They must start with a A-Z or an underscore.',
+            );
+
             $translatableTag = "{discopower:tabs:$tab}";
             if ($translator::translateSingularGettext($translatableTag) === $translatableTag) {
                 $t->data['tabNames'][$tab] = $translator::noop($tab);
