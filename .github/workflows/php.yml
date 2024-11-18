@@ -83,7 +83,7 @@ jobs:
         run: |
           composer-unused \
           --excludePackage=components/jquery \
-          --excludePackage=components/jquery-ui
+          --excludePackage=components/jqueryui
 
       - name: PHP Code Sniffer
         run: phpcs
