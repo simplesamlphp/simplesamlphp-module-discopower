@@ -80,7 +80,10 @@ jobs:
         run: composer-require-checker check --config-file=tools/composer-require-checker.json composer.json
 
       - name: Check code for unused dependencies in composer.json
-        run: composer-unused
+        run: |
+          composer-unused \
+          --excludePackage=components/jquery \
+          --excludePackage=components/jqueryui
 
       - name: PHP Code Sniffer
         run: phpcs
