@@ -340,9 +340,9 @@ class PowerIdPDisco extends IdPDisco
         foreach (array_keys($idpList) as $tab) {
             Assert::regex(
                 $tab,
-                '/^[a-z_][a-z0-9_-]+$/',
+                '/^[a-z_][a-z0-9_-]+$/i',
                 'Tags can contain alphanumeric characters, hyphens and underscores.'
-                . ' They must start with a A-Z or an underscore.',
+                . ' They must start with a A-Z or an underscore (supplied: "' . $tab .'")',
             );
 
             $translatableTag = "{discopower:tabs:$tab}";
