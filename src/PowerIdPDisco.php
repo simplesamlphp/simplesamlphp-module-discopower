@@ -342,7 +342,7 @@ class PowerIdPDisco extends IdPDisco
                 $tab,
                 '/^[a-z_][a-z0-9_-]+$/i',
                 'Tags can contain alphanumeric characters, hyphens and underscores.'
-                . ' They must start with a A-Z or an underscore (supplied: "' . $tab .'")',
+                . ' They must start with a A-Z or an underscore (supplied: "' . $tab . '")',
             );
 
             $translatableTag = "{discopower:tabs:$tab}";
