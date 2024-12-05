@@ -38,7 +38,7 @@
             <ul class="tabset-tabs">
             {% for tab, idps in idplist %}
                 {% if idps is not empty %}
-                {# NOTE: pass through raw to allow HTML in tabNames, e.g. Belgi&euml; #}
+                {# NOTE: pass through raw to allow HTML entities in tabNames, e.g. Belgi&euml; #}
                 <li class="tab-link{% if loop.first %}current{% endif %}" data-tab="{{ tab }}"><a href="#{{ tab }}"><span>{{ tabNames[tab]|trans|raw }}</span></a></li>
                 {% endif %}
             {% endfor %}
