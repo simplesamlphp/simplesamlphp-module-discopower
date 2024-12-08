@@ -3,11 +3,11 @@
 
 {% block preload %}
     <link rel="stylesheet" media="screen" href="{{ asset('css/disco.css', 'discopower') }}">
-    <link rel="stylesheet" media="screen" href="{{ asset('components/jquery-ui.min.css', 'discopower') }}">
+    <link rel="stylesheet" media="screen" href="{{ asset('css/jquery-ui.min.css', 'jquery') }}">
 {% endblock %}
 {% block postload %}
-    <script src="{{ asset('components/jquery.min.js', 'discopower') }}"></script>
-    <script src="{{ asset('components/jquery-ui.min.js', 'discopower') }}"></script>
+    <script src="{{ asset('js/jquery.min.js', 'jquery') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js', 'jquery') }}"></script>
     <script src="{{ asset('js/jquery.livesearch.js', 'discopower') }}"></script>
     <script src="{{ asset('js/' ~ score ~ '.js', 'discopower') }}"></script>
     <script src="{{ asset('js/tablist.js', 'discopower') }}"></script>
