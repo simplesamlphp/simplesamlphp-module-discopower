@@ -12,7 +12,7 @@ use SimpleSAML\Metadata\MetaDataStorageHandler;
 use SimpleSAML\Module\discopower\PowerIdPDisco;
 
 #[CoversClass(PowerIdPDisco::class)]
-class PowerIdPDiscoTest extends TestCase
+final class PowerIdPDiscoTest extends TestCase
 {
     /** @var \SimpleSAML\Module\discopower\PowerIdPDisco */
     private static PowerIdPDisco $discoHandler;
