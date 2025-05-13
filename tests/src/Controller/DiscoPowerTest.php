@@ -61,7 +61,7 @@ final class DiscoPowerTest extends ClearStateTestCase
 
         $this->expectException(Error\Error::class);
         $this->expectExceptionMessage("DISCOPARAMS");
-        $r = $c->main($request);
+        $c->main($request);
     }
 
     public function testDiscoPowerHasDiscoParams(): void
@@ -159,7 +159,7 @@ final class DiscoPowerTest extends ClearStateTestCase
 
         $this->expectException(Error\Exception::class);
         $this->expectExceptionMessage("Could not get tab list from session");
-        $r = $c->tablist($request);
+        $c->tablist($request);
     }
 
     public function testTablistJsonUnsafeCallback(): void
@@ -179,6 +179,6 @@ final class DiscoPowerTest extends ClearStateTestCase
 
         $this->expectException(Error\Exception::class);
         $this->expectExceptionMessage("Unsafe JSONP callback");
-        $r = $c->tablist($request);
+        $c->tablist($request);
     }
 }
