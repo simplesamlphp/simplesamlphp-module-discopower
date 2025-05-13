@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\{Request, StreamedResponse};
  * Set of tests for the controllers in the "discopower" module.
  */
 #[CoversClass(Controller\DiscoPower::class)]
-class DiscoPowerTest extends ClearStateTestCase
+final class DiscoPowerTest extends ClearStateTestCase
 {
     /** @var \SimpleSAML\Configuration */
     private static Configuration $discoconfig;

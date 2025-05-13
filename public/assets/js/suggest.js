@@ -22,4 +22,4 @@ String.prototype.score = function (abbreviation,offset) {
         }
     }
     return 1;
-}
+};
