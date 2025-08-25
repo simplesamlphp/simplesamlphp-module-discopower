@@ -51,16 +51,16 @@ class PowerIdPDisco extends IdPDisco
     /**
      * The default sort weight for entries without 'discopower.weight'.
      *
-     * @var int|null
+     * @var int
      */
-    private static ?int $defaultWeight = 100;
+    private static int $defaultWeight = 100;
 
     /**
      * Initializes this discovery service.
      *
      * The constructor does the parsing of the request. If this is an invalid request, it will throw an exception.
      *
-     * @param array  $metadataSets Array with metadata sets we find remote entities in.
+     * @param array<mixed> $metadataSets Array with metadata sets we find remote entities in.
      * @param string $instance The name of this instance of the discovery service.
      */
     public function __construct(array $metadataSets, string $instance)
@@ -102,8 +102,8 @@ class PowerIdPDisco extends IdPDisco
      * higher, and will always put IdP's with names configured before those with
      * only an entityID.
      *
-     * @param array $a The metadata of the first entity.
-     * @param array $b The metadata of the second entity.
+     * @param array<mixed> $a The metadata of the first entity.
+     * @param array<mixed> $b The metadata of the second entity.
      *
      * @return int How $a compares to $b.
      */
@@ -135,9 +135,9 @@ class PowerIdPDisco extends IdPDisco
     /**
      * Structure the list of IdPs in a hierarchy based upon the tags.
      *
-     * @param array $list A list of IdPs.
+     * @param array<mixed> $list A list of IdPs.
      *
-     * @return array The list of IdPs structured accordingly.
+     * @return array<mixed> The list of IdPs structured accordingly.
      */
     protected function idplistStructured(array $list): array
     {
@@ -178,8 +178,8 @@ class PowerIdPDisco extends IdPDisco
     /**
      * Do the actual filtering according the rules defined.
      *
-     * @param array   $filter A set of rules regarding filtering.
-     * @param array   $entry An entry to be evaluated by the filters.
+     * @param array<mixed> $filter A set of rules regarding filtering.
+     * @param array<mixed> $entry An entry to be evaluated by the filters.
      * @param boolean $default What to do in case the entity does not match any rules. Defaults to true.
      *
      * @return boolean True if the entity should be kept, false if it should be discarded according to the filters.
@@ -213,9 +213,9 @@ class PowerIdPDisco extends IdPDisco
      * Filter a list of entities according to any filters defined in the parent class, plus discopower configuration
      * options regarding filtering.
      *
-     * @param array $list A list of entities to filter.
+     * @param array<mixed> $list A list of entities to filter.
      *
-     * @return array The list in $list after filtering entities.
+     * @return array<mixed> The list in $list after filtering entities.
      */
     protected function filterList(array $list): array
     {
@@ -358,8 +358,8 @@ class PowerIdPDisco extends IdPDisco
 
     /**
      * @param \SimpleSAML\XHTML\Template $t
-     * @param array $metadata
-     * @return array
+     * @param array<mixed> $metadata
+     * @return array<mixed>
      */
     private function processMetadata(Template $t, array $metadata): array
     {
@@ -389,7 +389,7 @@ class PowerIdPDisco extends IdPDisco
     /**
      * Get the IdP entities saved in the common domain cookie.
      *
-     * @return array List of IdP entities.
+     * @return string[] List of IdP entities.
      */
     private function getCDC(): array
     {
@@ -401,10 +401,6 @@ class PowerIdPDisco extends IdPDisco
         $ret = explode(' ', $ret);
         foreach ($ret as &$idp) {
             $idp = base64_decode($idp);
-            if ($idp === false) {
-                // not properly base64 encoded
-                return [];
-            }
         }
 
         return $ret;
