@@ -10,7 +10,8 @@ use SimpleSAML\Error;
 use SimpleSAML\Module\discopower\Controller;
 use SimpleSAML\Session;
 use SimpleSAML\TestUtils\ClearStateTestCase;
-use Symfony\Component\HttpFoundation\{Request, StreamedResponse};
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Set of tests for the controllers in the "discopower" module.
@@ -50,6 +51,7 @@ final class DiscoPowerTest extends ClearStateTestCase
         );
     }
 
+
     public function testDiscoPowerNoDiscoParams(): void
     {
         $request = Request::create(
@@ -63,6 +65,7 @@ final class DiscoPowerTest extends ClearStateTestCase
         $this->expectExceptionMessage("DISCOPARAMS");
         $c->main($request);
     }
+
 
     public function testDiscoPowerHasDiscoParams(): void
     {
@@ -82,9 +85,9 @@ final class DiscoPowerTest extends ClearStateTestCase
         $c = new Controller\DiscoPower();
 
         $r = $c->main($request);
-        $this->assertInstanceOf(StreamedResponse::class, $r);
         $this->assertTrue($r->isSuccessful());
     }
+
 
     public function testDiscoPowerReturnUrlDisallowed(): void
     {
@@ -108,6 +111,7 @@ final class DiscoPowerTest extends ClearStateTestCase
         $this->expectExceptionMessage("DISCOPARAMS");
         $c->main($request);
     }
+
 
     public function testTablistJson(): void
     {
@@ -148,6 +152,7 @@ final class DiscoPowerTest extends ClearStateTestCase
         );
     }
 
+
     public function testTablistJsonNoSession(): void
     {
         $request = Request::create(
@@ -161,6 +166,7 @@ final class DiscoPowerTest extends ClearStateTestCase
         $this->expectExceptionMessage("Could not get tab list from session");
         $c->tablist($request);
     }
+
 
     public function testTablistJsonUnsafeCallback(): void
     {

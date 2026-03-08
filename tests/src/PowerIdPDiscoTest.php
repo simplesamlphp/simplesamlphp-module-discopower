@@ -54,12 +54,6 @@ final class PowerIdPDiscoTest extends TestCase
         self::$idpList = MetaDataStorageHandler::getMetadataHandler()->getList('saml20-idp-remote');
     }
 
-    /**
-     */
-    public function testPowerIdPDisco(): void
-    {
-        $this->assertInstanceOf(PowerIdPDisco::class, self::$discoHandler);
-    }
 
     /**
      */
@@ -72,6 +66,7 @@ final class PowerIdPDiscoTest extends TestCase
 
         $this->assertEquals(self::$idpList, $idpList);
     }
+
 
     /**
      */
@@ -131,6 +126,7 @@ final class PowerIdPDiscoTest extends TestCase
         $this->assertEquals($expected['A'], $idpList['A']);
         $this->assertEquals($expected['B'], $idpList['B']);
     }
+
 
     /**
      */

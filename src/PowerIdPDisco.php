@@ -47,13 +47,13 @@ class PowerIdPDisco extends IdPDisco
      */
     private ?int $cdcLifetime;
 
-
     /**
      * The default sort weight for entries without 'discopower.weight'.
      *
      * @var int
      */
     private static int $defaultWeight = 100;
+
 
     /**
      * Initializes this discovery service.

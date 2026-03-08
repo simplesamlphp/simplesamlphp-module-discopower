@@ -8,7 +8,10 @@ use Exception;
 use SimpleSAML\Error;
 use SimpleSAML\Module\discopower\PowerIdPDisco;
 use SimpleSAML\Session;
-use Symfony\Component\HttpFoundation\{JsonResponse, Request, Response, StreamedResponse};
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DiscoPower
 {
@@ -35,6 +38,7 @@ class DiscoPower
             throw new Error\Error('METADATA', $exception);
         }
     }
+
 
     /**
      * An AJAX handler to retrieve a list of disco tabs from the session.
