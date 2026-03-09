@@ -11,7 +11,6 @@ use SimpleSAML\Module\discopower\Controller;
 use SimpleSAML\Session;
 use SimpleSAML\TestUtils\ClearStateTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Set of tests for the controllers in the "discopower" module.
