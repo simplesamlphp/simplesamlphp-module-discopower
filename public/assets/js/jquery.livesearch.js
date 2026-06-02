@@ -17,7 +17,7 @@ jQuery.fn.liveUpdate = function (list) {
 
     function filter()
     {
-        var term = jQuery.trim(jQuery(this).val().toLowerCase()), scores = [];
+        var term = jQuery(this).val().toLowerCase().trim(), scores = [];
 
         if (!term) {
             rows.show();
